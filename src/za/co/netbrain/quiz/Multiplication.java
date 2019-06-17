@@ -21,8 +21,6 @@ import com.codename1.ui.layouts.GridLayout;
  */
 public class Multiplication extends FormMain {
 
-    private Integer score = 0;
-
     @Override
     public String getDisplayName() {
         return "Multiplication";
@@ -103,15 +101,9 @@ public class Multiplication extends FormMain {
 
                     if (Integer.valueOf(result.getText()).equals(resultValue)) {
                         answer.setIcon(getResources().getImage("trophy.jpg").scaled(100, 100));
-                        score += 1;
-                        setResult(score);
+                        result.setEditable(false);
                     } else {
                         answer.setIcon(getResources().getImage("tryagain.jpg").scaled(100, 100));
-                        score -= 1;
-                        if (score < 0) {
-                            score = 0;
-                        }
-                        setResult(score);
                     }
                 } catch (NumberFormatException nfe) {
 
@@ -123,13 +115,5 @@ public class Multiplication extends FormMain {
             parent.revalidate();
         }
         return numbersGroup;
-    }
-
-    public Integer getScore() {
-        return score;
-    }
-
-    public void setScore(Integer score) {
-        this.score = score;
     }
 }

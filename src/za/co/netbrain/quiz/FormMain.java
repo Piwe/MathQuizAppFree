@@ -7,17 +7,11 @@ import com.codename1.db.Row;
 import com.codename1.io.Log;
 import com.codename1.io.Util;
 import com.codename1.ui.Component;
-import com.codename1.ui.ComponentGroup;
 import com.codename1.ui.Container;
 import com.codename1.ui.Display;
 import com.codename1.ui.FontImage;
 import com.codename1.ui.Form;
 import com.codename1.ui.Image;
-import com.codename1.ui.Label;
-import com.codename1.ui.TextField;
-import com.codename1.ui.events.ActionEvent;
-import com.codename1.ui.events.ActionListener;
-import com.codename1.ui.layouts.GridLayout;
 import com.codename1.ui.table.DefaultTableModel;
 import com.codename1.ui.table.Table;
 import com.codename1.ui.util.Resources;
@@ -32,7 +26,7 @@ public abstract class FormMain {
 
     private Resources res;
     private Integer result;
-    
+
     private final QuizNumber one = new QuizNumber();
     private final QuizNumber two = new QuizNumber();
     private final QuizNumber three = new QuizNumber();
@@ -43,7 +37,7 @@ public abstract class FormMain {
     private final QuizNumber eight = new QuizNumber();
     private final QuizNumber nine = new QuizNumber();
     private final QuizNumber ten = new QuizNumber();
-    
+
     private final QuizShape circle = new QuizShape();
     private final QuizShape triangle = new QuizShape();
     private final QuizShape square = new QuizShape();
@@ -58,14 +52,8 @@ public abstract class FormMain {
 
     private List<QuizNumber> rightList = new ArrayList<>();
     private List<QuizNumber> leftList = new ArrayList<>();
-    
+
     private List<QuizShape> quizShapeList = new ArrayList<>();
-    
-        // static division lists
-    private List<QuizNumber> staticRightList = new ArrayList<>();
-    private List<QuizNumber> staticLeftList = new ArrayList<>();
-    private ComponentGroup staticDivisionsGroup = new ComponentGroup();
-    
 
     public void init(Resources res) {
         this.res = res;
@@ -78,7 +66,7 @@ public abstract class FormMain {
     public abstract String getDisplayName();
 
     public abstract Image getFormIcon();
-    
+
     public Image getImage(String image) {
         return res.getImage(image);
     }
@@ -161,7 +149,7 @@ public abstract class FormMain {
         Collections.shuffle(leftList);
 
     }
-    
+
     public List<QuizNumber> getRightList() {
         return rightList;
     }
@@ -177,144 +165,36 @@ public abstract class FormMain {
     public void setLeftList(List<QuizNumber> leftList) {
         this.leftList = leftList;
     }
-    
-    public void populateStaticLists() {
 
-        QuizNumber one_ = new QuizNumber();
-        QuizNumber two_ = new QuizNumber();
-        QuizNumber three_ = new QuizNumber();
-        QuizNumber four_ = new QuizNumber();
-        QuizNumber five_ = new QuizNumber();
-        QuizNumber six_ = new QuizNumber();
-        QuizNumber seven_ = new QuizNumber();
-        QuizNumber eight_ = new QuizNumber();
-        QuizNumber nine_ = new QuizNumber();
-        QuizNumber ten_ = new QuizNumber();
+    public void populateQuizShapes() {
 
-        one_.setValue(1);
-        one_.setNumberImage(getResources().getImage("one.jpg"));
-
-        two_.setValue(2);
-        two_.setNumberImage(getImage("two.jpg"));
-
-        three_.setValue(3);
-        three_.setNumberImage(getImage("three.jpg"));
-
-        four_.setValue(4);
-        four_.setNumberImage(getImage("four.jpg"));
-
-        five_.setValue(5);
-        five_.setNumberImage(getImage("five.jpg"));
-
-        six_.setValue(6);
-        six_.setNumberImage(getImage("six.jpg"));
-
-        seven_.setValue(7);
-        seven_.setNumberImage(getImage("seven.jpg"));
-
-        eight_.setValue(8);
-        eight_.setNumberImage(getImage("eight.jpg"));
-
-        nine_.setValue(9);
-        nine_.setNumberImage(getImage("nine.jpg"));
-
-        ten_.setValue(10);
-        ten_.setNumberImage(getImage("ten.jpg"));
-
-        staticLeftList.add(two_);
-        staticLeftList.add(four_);
-        staticLeftList.add(six_);
-        staticLeftList.add(eight_);
-        staticLeftList.add(ten_);
-
-        staticRightList.add(one_);
-        staticRightList.add(two_);
-        staticRightList.add(three_);
-        staticRightList.add(four_);
-        staticRightList.add(five_);
-
-        for (int y = 0; y < 5; y++) {
-            staticDivisionsGroup.add(getStaticDivisions(staticLeftList.get(y), staticRightList.get(y)));
-        }
-    }
-
-    public Container getStaticDivisions(QuizNumber left, QuizNumber right) {
-
-        Container rowContainer = new Container(new GridLayout(6));
-
-        TextField result = new TextField();
-        Integer firstValue = left.getValue();
-        Integer secondValue = right.getValue();
-
-        Label answer = new Label();
-
-        rowContainer.addComponent(new Label(left.getNumberImage().scaled(100, 100)));
-        rowContainer.addComponent(new Label(getResources().getImage("devide.jpg").scaled(100, 100)));
-
-        rowContainer.addComponent(new Label(right.getNumberImage().scaled(100, 100)));
-        rowContainer.addComponent(new Label(getResources().getImage("equals.jpg").scaled(100, 100)));
-
-        Integer resultValue = firstValue / secondValue;
-
-        result.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent t) {
-
-                try {
-                    if (Integer.valueOf(result.getText()).equals(resultValue)) {
-                        answer.setIcon(getResources().getImage("trophy.jpg").scaled(100, 100));
-                    } else {
-                        answer.setIcon(getResources().getImage("tryagain.jpg").scaled(100, 100));
-                    }
-                } catch (NumberFormatException nfe) {
-
-                }
-            }
-        });
-
-        rowContainer.addComponent(result);
-        rowContainer.addComponent(answer);
-        
-        return rowContainer;
-    }
-
-    public ComponentGroup getStaticDivisionsGroup() {
-        return staticDivisionsGroup;
-    }
-
-    public void setStaticDivisionsGroup(ComponentGroup staticDivisionsGroup) {
-        this.staticDivisionsGroup = staticDivisionsGroup;
-    } 
-    
-        public void populateQuizShapes() {
-       
         circle.setName("circle");
         circle.setShapeImage(getImage("round.jpg"));
-        
+
         triangle.setName("triangle");
         triangle.setShapeImage(getImage("triangle.jpg"));
-        
+
         square.setName("square");
         square.setShapeImage(getImage("square.jpg"));
 
         rectangle.setName("rectangle");
         rectangle.setShapeImage(getImage("rectangle.jpg"));
-        
+
         oval.setName("oval");
         oval.setShapeImage(getImage("oval.jpg"));
-        
+
         heart.setName("heart");
         heart.setShapeImage(getImage("heart.jpg"));
-        
+
         diamond.setName("diamond");
         diamond.setShapeImage(getImage("diamond.jpg"));
-        
+
         star.setName("star");
         star.setShapeImage(getImage("star.jpg"));
-        
+
         trapezium.setName("trapezium");
         trapezium.setShapeImage(getImage("trapezium.jpg"));
-        
+
         octagon.setName("octagon");
         octagon.setShapeImage(getImage("octagon.jpg"));
 
@@ -332,9 +212,9 @@ public abstract class FormMain {
         quizShapeList.add(trapezium);
         quizShapeList.add(octagon);
         quizShapeList.add(hexagon);
-        
+
         Collections.shuffle(quizShapeList);
-        
+
     }
 
     public List<QuizShape> getQuizShapeList() {
@@ -352,11 +232,11 @@ public abstract class FormMain {
     public void setResult(Integer result) {
         this.result = result;
     }
-    
+
     public Container getResultsContainer(String operation, Form parent) {
-        
+
         Container container = new Container();
-        
+
         Database db = null;
         Cursor cur = null;
         String query = "select * from " + operation;

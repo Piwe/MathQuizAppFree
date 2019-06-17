@@ -181,11 +181,7 @@ public class MathQuiz {
             new Multiplication(),
             new Subtraction(),
             new Division(),
-            new ObjectMatching(),
             new Results()
-        /*new Shapes(), 
-            new Counting(),
-            new Words()*/
         };
 
         for (FormMain d : pages) {
@@ -354,7 +350,6 @@ public class MathQuiz {
 
     public void stop() {
         currentForm = getCurrentForm();
-        RatingWidget.suspendRating();
     }
 
     public void destroy() {
