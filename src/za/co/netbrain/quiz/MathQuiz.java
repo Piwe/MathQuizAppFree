@@ -1,17 +1,12 @@
 package za.co.netbrain.quiz;
 
-import com.codename1.components.ToastBar;
-import com.codename1.db.Database;
-import com.codename1.io.FileSystemStorage;
 import com.codename1.io.Log;
 import com.codename1.io.Preferences;
-import com.codename1.io.Util;
 import com.codename1.ui.Command;
 import com.codename1.ui.Component;
 import com.codename1.ui.Container;
 import com.codename1.ui.Dialog;
 import static com.codename1.ui.CN.*;
-import com.codename1.ui.Display;
 import com.codename1.ui.FontImage;
 import com.codename1.ui.Form;
 import com.codename1.ui.Graphics;
@@ -28,9 +23,6 @@ import com.codename1.ui.layouts.GridLayout;
 import com.codename1.ui.layouts.LayeredLayout;
 import com.codename1.ui.plaf.UIManager;
 import com.codename1.ui.util.Resources;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
 
 public class MathQuiz {
 
@@ -61,23 +53,9 @@ public class MathQuiz {
         }
         Dialog.setDefaultBlurBackgroundRadius(10);
 
-        // install a default DB
-        String path = Display.getInstance().getDatabasePath("Results.db");
-        if (path != null && !FileSystemStorage.getInstance().exists(path)) {
-            copyDb(path);
-        }
-
         Log.bindCrashProtection(false);
     }
 
-    private void copyDb(String path) {
-        try (InputStream i = Display.getInstance().getResourceAsStream(getClass(), "/Results.db");
-                OutputStream o = FileSystemStorage.getInstance().openOutputStream(path)) {
-            Util.copy(i, o);
-        } catch (IOException err) {
-            Log.e(err);
-        }
-    }
 
     private AppComponent createAppButton(FormMain currentForm) {
         AppComponent dc = new AppComponent(currentForm.getDisplayName(), currentForm.getFormIcon(), imageMask,
@@ -102,27 +80,7 @@ public class MathQuiz {
                 f.getToolbar().setBackCommand(" ", new ActionListener<ActionEvent>() {
                     @Override
                     public void actionPerformed(ActionEvent ee) {
-                        
-                        if (currentForm instanceof Results) {
-                            previous.showBack();
-                        }
-                        
                         if (currentForm.onBack()) {
-                            // Write results to the Database
-                            if (currentForm.getResult() > 0) {
-                                String query = "insert into " + currentForm.getDisplayName().toLowerCase() + " values(" + System.currentTimeMillis() + "," + "'" + currentForm.getDisplayName()  + "'" + "," + System.currentTimeMillis() + "," + currentForm.getResult() +")";
-                                Database db = null;
-                                try {
-                                    db = Display.getInstance().openOrCreate("Results.db");
-                                    db.execute(query);
-                                    ToastBar.showMessage("Query completed successfully", FontImage.MATERIAL_INFO);
-                                } catch (IOException err) {
-                                    ToastBar.showErrorMessage("Error: " + err);
-                                    System.out.println("Query : " + query);
-                                    System.out.println("Error: " + err);
-                                } finally {
-                                    Util.cleanup(db);
-                                }}
                             previous.showBack();
                         }
                     }
@@ -180,8 +138,7 @@ public class MathQuiz {
             new Addition(),
             new Multiplication(),
             new Subtraction(),
-            new Division(),
-            new Results()
+            new Division()
         };
 
         for (FormMain d : pages) {

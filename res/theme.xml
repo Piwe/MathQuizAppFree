@@ -9,24 +9,17 @@
     <image name="codenameone-icon-background.png" type="multi"  />
     <image name="codenameone-icon-foreground.png" type="multi"  />
     <image name="devide.jpg"  />
-    <image name="diamond.jpg"  />
     <image name="eight.jpg"  />
     <image name="equals.jpg"  />
     <image name="five.jpg"  />
     <image name="four.jpg"  />
-    <image name="heart.jpg"  />
-    <image name="hexagon.jpg"  />
     <image name="icon.png"  />
     <image name="logo.jpg"  />
     <image name="minus.jpg"  />
-    <image name="moon.jpg"  />
     <image name="multiply.jpg"  />
     <image name="nine.jpg"  />
-    <image name="octagon.jpg"  />
     <image name="one.jpg"  />
-    <image name="oval.jpg"  />
     <image name="plus.jpg"  />
-    <image name="rectangle.jpg"  />
     <image name="RedCard.borderBottom_1.png" type="multi"  />
     <image name="RedCard.borderBottomL_1.png" type="multi"  />
     <image name="RedCard.borderBottomR_1.png" type="multi"  />
@@ -36,11 +29,8 @@
     <image name="RedCard.borderTop_1.png" type="multi"  />
     <image name="RedCard.borderTopL_1.png" type="multi"  />
     <image name="RedCard.borderTopR_1.png" type="multi"  />
-    <image name="round.jpg"  />
     <image name="seven.jpg"  />
     <image name="six.jpg"  />
-    <image name="square.jpg"  />
-    <image name="star.jpg"  />
     <image name="ten.jpg"  />
     <theme name="Theme">
         <val key="@includeNativeBool" value="true" />
@@ -405,8 +395,6 @@
         <val key="textDecoration" value="16" />
     </theme>
     <image name="three.jpg"  />
-    <image name="trapezium.jpg"  />
-    <image name="triangle.jpg"  />
     <image name="trophy.jpg"  />
     <image name="tryagain.jpg"  />
     <image name="two.jpg"  />
