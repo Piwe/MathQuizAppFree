@@ -7,6 +7,7 @@ import com.codename1.ui.Image;
 import com.codename1.ui.ComponentGroup;
 import com.codename1.ui.Component;
 import com.codename1.ui.Label;
+import com.codename1.ui.TextArea;
 import com.codename1.ui.TextField;
 import com.codename1.ui.layouts.LayeredLayout;
 import com.codename1.ui.animations.CommonTransitions;
@@ -92,6 +93,8 @@ public class Division extends FormMain {
             TextField result = new TextField();
             Integer firstValue = getLeftList().get(x).getValue();
             Integer secondValue = getRightList().get(x).getValue();
+            
+            result.setConstraint(TextArea.NUMERIC);
 
             Label answer = new Label();
 

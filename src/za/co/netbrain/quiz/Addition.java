@@ -7,6 +7,7 @@ import com.codename1.ui.Image;
 import com.codename1.ui.ComponentGroup;
 import com.codename1.ui.Component;
 import com.codename1.ui.Label;
+import com.codename1.ui.TextArea;
 import com.codename1.ui.TextField;
 import com.codename1.ui.layouts.LayeredLayout;
 import com.codename1.ui.animations.CommonTransitions;
@@ -94,6 +95,7 @@ public class Addition extends FormMain {
 
             TextField result = new TextField();
             Integer resultValue = firstValue + secondValue;
+            result.setConstraint(TextArea.NUMERIC);
 
             Label answer = new Label();
 
