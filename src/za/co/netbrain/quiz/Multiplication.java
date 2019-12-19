@@ -15,6 +15,7 @@ import com.codename1.ui.events.ActionEvent;
 import com.codename1.ui.events.ActionListener;
 import com.codename1.ui.layouts.BorderLayout;
 import com.codename1.ui.layouts.GridLayout;
+import za.co.netbrain.quiz.numbers.NumberUtility;
 
 /**
  *
@@ -22,6 +23,8 @@ import com.codename1.ui.layouts.GridLayout;
  */
 public class Multiplication extends FormMain {
 
+    private NumberUtility numberUtility = new NumberUtility();
+    
     @Override
     public String getDisplayName() {
         return "Multiplication";
@@ -78,19 +81,19 @@ public class Multiplication extends FormMain {
         numbersGroup.setTactileTouch(true);
         numbersGroup.setScrollableY(true);
 
-        populateQuizNumbers();
+        int limit = numberUtility.getNumberList("beginner");
 
-        for (int x = 0; x < 10; x++) {
+        for (int x = 0; x < limit; x++) {
 
             Container rowContainer = new Container(new GridLayout(6));
 
-            Integer firstValue = getLeftList().get(x).getValue();
-            rowContainer.addComponent(new Label((getLeftList().get(x).getNumberImage().scaled(100, 100))));
-            rowContainer.addComponent(new Label(getResources().getImage("multiply.jpg").scaled(100, 100)));
+            Integer firstValue = numberUtility.getLeftList().get(x);
+            rowContainer.addComponent(new Label("" + numberUtility.getLeftList().get(x)));
+            rowContainer.addComponent(new Label("X"));
 
-            Integer secondValue = getRightList().get(x).getValue();
-            rowContainer.addComponent(new Label((getRightList().get(x).getNumberImage().scaled(100, 100))));
-            rowContainer.addComponent(new Label(getResources().getImage("equals.jpg").scaled(100, 100)));
+            Integer secondValue = numberUtility.getRightList().get(x);
+            rowContainer.addComponent(new Label("" + numberUtility.getRightList().get(x)));
+            rowContainer.addComponent(new Label("="));
 
             TextField result = new TextField();
             Integer resultValue = firstValue * secondValue;

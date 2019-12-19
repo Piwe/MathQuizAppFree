@@ -15,6 +15,7 @@ import com.codename1.ui.events.ActionEvent;
 import com.codename1.ui.events.ActionListener;
 import com.codename1.ui.layouts.BorderLayout;
 import com.codename1.ui.layouts.GridLayout;
+import za.co.netbrain.quiz.numbers.NumberUtility;
 
 /**
  *
@@ -22,6 +23,8 @@ import com.codename1.ui.layouts.GridLayout;
  */
 public class Subtraction extends FormMain {
 
+    private NumberUtility numberUtility = new NumberUtility();
+    
     @Override
     public String getDisplayName() {
         return "Subtraction";
@@ -78,27 +81,27 @@ public class Subtraction extends FormMain {
         numbersGroup.setTactileTouch(true);
         numbersGroup.setScrollableY(true);
 
-        populateQuizNumbers();
+        int limit = numberUtility.getNumberList("beginner");
 
-        for (int x = 0; x < 10; x++) {
+        for (int x = 0; x < limit; x++) {
 
             Container rowContainer = new Container(new GridLayout(6));
 
             TextField result = new TextField();
 
-            Integer firstValue = getLeftList().get(x).getValue();
-            Integer secondValue = getRightList().get(x).getValue();
+            Integer firstValue = numberUtility.getLeftList().get(x);
+            Integer secondValue = numberUtility.getRightList().get(x);
             
             result.setConstraint(TextArea.NUMERIC);
 
             Label answer = new Label();
 
             if (secondValue > firstValue) {
-                rowContainer.addComponent(new Label((getRightList().get(x).getNumberImage().scaled(100, 100))));
-                rowContainer.addComponent(new Label(getResources().getImage("minus.jpg").scaled(100, 100)));
+                rowContainer.addComponent(new Label("" + numberUtility.getRightList().get(x)));
+                rowContainer.addComponent(new Label("-"));
 
-                rowContainer.addComponent(new Label((getLeftList().get(x).getNumberImage().scaled(100, 100))));
-                rowContainer.addComponent(new Label(getResources().getImage("equals.jpg").scaled(100, 100)));
+                rowContainer.addComponent(new Label("" + numberUtility.getLeftList().get(x)));
+                rowContainer.addComponent(new Label("="));
 
                 Integer resultValue = secondValue - firstValue;
 
@@ -116,11 +119,11 @@ public class Subtraction extends FormMain {
                 });
 
             } else {
-                rowContainer.addComponent(new Label((getLeftList().get(x).getNumberImage().scaled(100, 100))));
-                rowContainer.addComponent(new Label(getResources().getImage("minus.jpg").scaled(100, 100)));
+                rowContainer.addComponent(new Label("" + numberUtility.getLeftList().get(x)));
+                rowContainer.addComponent(new Label("-"));
 
-                rowContainer.addComponent(new Label((getRightList().get(x).getNumberImage().scaled(100, 100))));
-                rowContainer.addComponent(new Label(getResources().getImage("equals.jpg").scaled(100, 100)));
+                rowContainer.addComponent(new Label("" + numberUtility.getRightList().get(x)));
+                rowContainer.addComponent(new Label("="));
 
                 Integer resultValue = firstValue - secondValue;
 

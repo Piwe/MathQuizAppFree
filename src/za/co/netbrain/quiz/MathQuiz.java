@@ -130,15 +130,16 @@ public class MathQuiz {
         }
         showSplashAnimation();
     }
-
+    
+    
+    
     private void showMainUI() {
         final Form f = new Form("MathQuiz For Kidz", new BorderLayout());
 
         FormMain[] pages = new FormMain[]{
-            new Addition(),
-            new Multiplication(),
-            new Subtraction(),
-            new Division()
+            new Level_Beginner(),
+            new Level_Intermediate(),
+            new Level_Advanced()
         };
 
         for (FormMain d : pages) {
@@ -304,6 +305,14 @@ public class MathQuiz {
         f.setTransitionInAnimator(CommonTransitions.createEmpty());
         f.show();
     }
+    
+    
+    
+    
+    
+    
+
+    
 
     public void stop() {
         currentForm = getCurrentForm();

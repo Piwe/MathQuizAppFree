@@ -15,6 +15,7 @@ import com.codename1.ui.events.ActionEvent;
 import com.codename1.ui.events.ActionListener;
 import com.codename1.ui.layouts.BorderLayout;
 import com.codename1.ui.layouts.GridLayout;
+import za.co.netbrain.quiz.numbers.NumberUtility;
 
 /**
  *
@@ -26,6 +27,8 @@ public class Division extends FormMain {
     public Image getImage(String image) {
         return getResources().getImage(image);
     }
+    
+    private NumberUtility numberUtility = new NumberUtility();
 
     @Override
     public String getDisplayName() {
@@ -84,26 +87,26 @@ public class Division extends FormMain {
         numbersGroup.setTactileTouch(true);
         numbersGroup.setScrollableY(true);
 
-        populateQuizNumbers();
-
-        for (int x = 0; x < 10; x++) {
+        int limit = numberUtility.getNumberList("beginner");
+        
+        for (int x = 0; x < limit; x++) {
 
             Container rowContainer = new Container(new GridLayout(6));
 
             TextField result = new TextField();
-            Integer firstValue = getLeftList().get(x).getValue();
-            Integer secondValue = getRightList().get(x).getValue();
+            Integer firstValue = numberUtility.getLeftList().get(x);
+            Integer secondValue = numberUtility.getRightList().get(x);
             
             result.setConstraint(TextArea.NUMERIC);
 
             Label answer = new Label();
 
             if ((firstValue > secondValue) && (firstValue % secondValue == 0)) {
-                rowContainer.addComponent(new Label((getLeftList().get(x).getNumberImage().scaled(100, 100))));
-                rowContainer.addComponent(new Label(getResources().getImage("devide.jpg").scaled(100, 100)));
+                rowContainer.addComponent(new Label("" + numberUtility.getLeftList().get(x)));
+                rowContainer.addComponent(new Label("%"));
 
-                rowContainer.addComponent(new Label((getRightList().get(x).getNumberImage().scaled(100, 100))));
-                rowContainer.addComponent(new Label(getResources().getImage("equals.jpg").scaled(100, 100)));
+                rowContainer.addComponent(new Label("" + numberUtility.getRightList().get(x)));
+                rowContainer.addComponent(new Label("="));
 
                 Integer resultValue = firstValue / secondValue;
 
@@ -131,11 +134,11 @@ public class Division extends FormMain {
                 }
             }
             if ((secondValue > firstValue) && (secondValue % firstValue == 0)) {
-                rowContainer.addComponent(new Label((getRightList().get(x).getNumberImage().scaled(100, 100))));
-                rowContainer.addComponent(new Label(getResources().getImage("devide.jpg").scaled(100, 100)));
+                rowContainer.addComponent(new Label("" + numberUtility.getRightList().get(x)));
+                rowContainer.addComponent(new Label("%"));
 
-                rowContainer.addComponent(new Label((getLeftList().get(x).getNumberImage().scaled(100, 100))));
-                rowContainer.addComponent(new Label(getResources().getImage("equals.jpg").scaled(100, 100)));
+                rowContainer.addComponent(new Label("" + numberUtility.getLeftList().get(x)));
+                rowContainer.addComponent(new Label("="));
 
                 Integer resultValue = secondValue / firstValue;
 

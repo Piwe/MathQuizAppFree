@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<resource majorVersion="1" minorVersion="9" useXmlUI="false">
+<resource majorVersion="1" minorVersion="10" useXmlUI="false">
+    <image name="advanced.png"  />
     <image name="background.jpg"  />
+    <image name="beginner.png"  />
     <image name="card-full.png" type="multi"  />
     <image name="circle-line.png" type="multi"  />
     <image name="circle.png" type="multi"  />
@@ -14,6 +16,7 @@
     <image name="five.jpg"  />
     <image name="four.jpg"  />
     <image name="icon.png"  />
+    <image name="intermediate.png"  />
     <image name="logo.jpg"  />
     <image name="minus.jpg"  />
     <image name="multiply.jpg"  />
