@@ -10,11 +10,11 @@ import java.util.List;
  */
 public class NumberUtility {
 
-    private List<Integer> numberList = new ArrayList<>();
     private List<Integer> leftList = new ArrayList<>();
     private List<Integer> rightList = new ArrayList<>();
 
     private Integer limit;
+    private String level;
 
     public List<Integer> getLeftList() {
         return leftList;
@@ -43,31 +43,37 @@ public class NumberUtility {
     public Integer getNumberList(String level) {
 
         setLimit(level);
-        for (int x = 0; x < getLimit(); x++) {
-            numberList.add(x);
+        for (int x = 1; x < getLimit(); x++) {
+            leftList.add(x);
         }
         
-        leftList = numberList;
-        rightList = numberList;
+        for (int y = 1; y < getLimit(); y++) {
+            rightList.add(y);
+        }
+        
         Collections.shuffle(leftList);
         Collections.shuffle(rightList);
         
-        return numberList.size();
+        return leftList.size();
     }
 
     private void setLimit(String level) {
-        if ("beginner".equals(level)) {
-            setLimit(10);
+        if ("Beginner".equals(level)) {
+            setLimit(11);
         }
-        if ("intermediate".equals(level)) {
-            setLimit(50);
+        if ("Intermediate".equals(level)) {
+            setLimit(51);
         }
-        if ("advanced".equals(level)) {
-            setLimit(100);
+        if ("Advanced".equals(level)) {
+            setLimit(101);
         }
     }
 
-    public void setNumberList(List<Integer> numberList) {
-        this.numberList = numberList;
+    public String getLevel() {
+        return level;
+    }
+
+    public void setLevel(String level) {
+        this.level = level;
     }
 }

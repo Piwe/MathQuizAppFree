@@ -15,6 +15,7 @@ import com.codename1.ui.events.ActionEvent;
 import com.codename1.ui.events.ActionListener;
 import com.codename1.ui.layouts.BorderLayout;
 import com.codename1.ui.layouts.GridLayout;
+import com.codename1.ui.util.Resources;
 import za.co.netbrain.quiz.numbers.NumberUtility;
 
 /**
@@ -23,12 +24,12 @@ import za.co.netbrain.quiz.numbers.NumberUtility;
  */
 public class Subtraction extends FormMain {
 
-    private NumberUtility numberUtility = new NumberUtility();
-    
     @Override
     public String getDisplayName() {
         return "Subtraction";
     }
+
+    private Resources myResources;
 
     @Override
     public String getDescription() {
@@ -45,13 +46,12 @@ public class Subtraction extends FormMain {
         return getResources().getImage("logo.jpg");
     }
 
-    @Override
-    public Container createForm(Form parent) {
+    public Container createForm(Form parent, NumberUtility numberUtility) {
 
-        Container numbers = BorderLayout.center(getNumbers(parent));
+        Container numbers = BorderLayout.center(getNumbers(parent, numberUtility));
         numbers.setUIID("InputContainerForeground");
 
-        Container actualContent = LayeredLayout.encloseIn(getNumbers(parent));
+        Container actualContent = LayeredLayout.encloseIn(getNumbers(parent, numberUtility));
 
         Container quizNumbers;
         if (!isTablet()) {
@@ -75,13 +75,13 @@ public class Subtraction extends FormMain {
 
     }
 
-    public ComponentGroup getNumbers(Form parent) {
+    public ComponentGroup getNumbers(Form parent, NumberUtility numberUtility) {
 
         ComponentGroup numbersGroup = new ComponentGroup();
         numbersGroup.setTactileTouch(true);
         numbersGroup.setScrollableY(true);
 
-        int limit = numberUtility.getNumberList("beginner");
+        int limit = numberUtility.getNumberList(numberUtility.getLevel());
 
         for (int x = 0; x < limit; x++) {
 
@@ -91,14 +91,14 @@ public class Subtraction extends FormMain {
 
             Integer firstValue = numberUtility.getLeftList().get(x);
             Integer secondValue = numberUtility.getRightList().get(x);
-            
+
             result.setConstraint(TextArea.NUMERIC);
 
             Label answer = new Label();
 
             if (secondValue > firstValue) {
                 rowContainer.addComponent(new Label("" + numberUtility.getRightList().get(x)));
-                rowContainer.addComponent(new Label("-"));
+                rowContainer.addComponent(new Label(getMyResources().getImage("minus.jpg").scaled(100, 100)));
 
                 rowContainer.addComponent(new Label("" + numberUtility.getLeftList().get(x)));
                 rowContainer.addComponent(new Label("="));
@@ -108,10 +108,10 @@ public class Subtraction extends FormMain {
                 result.addActionListener((ActionListener) (ActionEvent t) -> {
                     try {
                         if (Integer.valueOf(result.getText()).equals(resultValue)) {
-                            answer.setIcon(getResources().getImage("trophy.jpg").scaled(100, 100));
+                            answer.setIcon(getMyResources().getImage("trophy.jpg").scaled(100, 100));
                             result.setEditable(false);
                         } else {
-                            answer.setIcon(getResources().getImage("tryagain.jpg").scaled(100, 100));
+                            answer.setIcon(getMyResources().getImage("tryagain.jpg").scaled(100, 100));
                         }
                     } catch (NumberFormatException nfe) {
 
@@ -120,7 +120,7 @@ public class Subtraction extends FormMain {
 
             } else {
                 rowContainer.addComponent(new Label("" + numberUtility.getLeftList().get(x)));
-                rowContainer.addComponent(new Label("-"));
+                rowContainer.addComponent(new Label(getMyResources().getImage("minus.jpg").scaled(100, 100)));
 
                 rowContainer.addComponent(new Label("" + numberUtility.getRightList().get(x)));
                 rowContainer.addComponent(new Label("="));
@@ -130,10 +130,10 @@ public class Subtraction extends FormMain {
                 result.addActionListener((ActionListener) (ActionEvent t) -> {
                     try {
                         if (Integer.valueOf(result.getText()).equals(resultValue)) {
-                            answer.setIcon(getResources().getImage("trophy.jpg").scaled(100, 100));
+                            answer.setIcon(getMyResources().getImage("trophy.jpg").scaled(100, 100));
                             result.setEditable(false);
                         } else {
-                            answer.setIcon(getResources().getImage("tryagain.jpg").scaled(100, 100));
+                            answer.setIcon(getMyResources().getImage("tryagain.jpg").scaled(100, 100));
                         }
                     } catch (NumberFormatException nfe) {
 
@@ -147,5 +147,13 @@ public class Subtraction extends FormMain {
             parent.revalidate();
         }
         return numbersGroup;
+    }
+
+    public Resources getMyResources() {
+        return myResources;
+    }
+
+    public void setMyResources(Resources myResources) {
+        this.myResources = myResources;
     }
 }

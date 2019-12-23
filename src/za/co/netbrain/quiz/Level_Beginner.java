@@ -9,6 +9,7 @@ import com.codename1.ui.Label;
 import com.codename1.ui.animations.CommonTransitions;
 import com.codename1.ui.layouts.BorderLayout;
 import com.codename1.ui.layouts.LayeredLayout;
+import za.co.netbrain.quiz.numbers.NumberUtility;
 
 /**
  *
@@ -25,15 +26,17 @@ public class Level_Beginner extends FormMain {
     public Image getFormIcon() {
         return getResources().getImage("beginner.png");
     }
-    
-    
+        
     @Override
     public Container createForm(Form parent) {
  
-        Container forms = BorderLayout.center(getForms(parent));
+        NumberUtility numberUtility = new NumberUtility();
+        numberUtility.setLevel(getDisplayName());
+        
+        Container forms = BorderLayout.center(getForms(parent, numberUtility,getResources()));
         forms.setUIID("InputContainerForeground");
 
-        Container actualContent = LayeredLayout.encloseIn(getForms(parent));
+        Container actualContent = LayeredLayout.encloseIn(getForms(parent, numberUtility,getResources()));
 
         Container formsContainer;
         if (!isTablet()) {
@@ -57,7 +60,4 @@ public class Level_Beginner extends FormMain {
         return forms;
 
     }
-    
-    
-    
 }

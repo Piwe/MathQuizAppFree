@@ -8,6 +8,7 @@ import com.codename1.ui.Image;
 import com.codename1.ui.events.ActionEvent;
 import com.codename1.ui.events.ActionListener;
 import com.codename1.ui.util.Resources;
+import za.co.netbrain.quiz.numbers.NumberUtility;
 
 public abstract class FormMain {
 
@@ -22,7 +23,7 @@ public abstract class FormMain {
         this.res = res;
     }
 
-    protected Resources getResources() {
+    public Resources getResources() {
         return res;
     }
 
@@ -55,19 +56,20 @@ public abstract class FormMain {
     }
     
     
-    public ComponentGroup getForms(Form parent) {
+    public ComponentGroup getForms(Form parent, NumberUtility numberUtility,Resources resources) {
     
         ComponentGroup formsGroup = new ComponentGroup();
         formsGroup.setTactileTouch(true);
         formsGroup.setScrollableY(true);
         
-        Button addition = new Button("Addition");
+        Button addition = new Button(getImage("form_addition.png").scaled(400, 300));
         addition.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent evt) {
                 Addition additionForm = new Addition();
+                additionForm.setMyResources(res);
                 Form form = new Form("Addition");
-                form.add(additionForm.createForm(parent));
+                form.add(additionForm.createForm(parent, numberUtility));
                 form.getToolbar().setBackCommand(" ", new ActionListener<ActionEvent>() {
                     @Override
                     public void actionPerformed(ActionEvent ee) {
@@ -79,13 +81,14 @@ public abstract class FormMain {
                 form.show();
             }
         });
-        Button subtraction = new Button("Subtraction");
+        Button subtraction = new Button(getImage("form_subtraction.png").scaled(400, 300));
         subtraction.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent evt) {
                 Subtraction subtractionForm = new Subtraction();
+                subtractionForm.setMyResources(res);
                 Form form = new Form("Subtraction");
-                form.add(subtractionForm.createForm(parent));
+                form.add(subtractionForm.createForm(parent, numberUtility));
                 form.getToolbar().setBackCommand(" ", new ActionListener<ActionEvent>() {
                     @Override
                     public void actionPerformed(ActionEvent ee) {
@@ -97,13 +100,14 @@ public abstract class FormMain {
                 form.show();
             }
         });
-        Button division = new Button("Division");
+        Button division = new Button(getImage("form_division.png").scaled(400, 300));
         division.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent evt) {
                 Division divisionForm = new Division();
+                divisionForm.setMyResources(res);
                 Form form = new Form("Division");
-                form.add(divisionForm.createForm(parent));
+                form.add(divisionForm.createForm(parent, numberUtility));
                 form.getToolbar().setBackCommand(" ", new ActionListener<ActionEvent>() {
                     @Override
                     public void actionPerformed(ActionEvent ee) {
@@ -115,13 +119,14 @@ public abstract class FormMain {
                 form.show();
             }
         });
-        Button multiplication = new Button("Multiplication");
+        Button multiplication = new Button(getImage("form_multiplication.png").scaled(400, 300));
         multiplication.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent evt) {
                 Multiplication multiplicationForm = new Multiplication();
+                multiplicationForm.setMyResources(res);
                 Form form = new Form("Multiplication");
-                form.add(multiplicationForm.createForm(parent));
+                form.add(multiplicationForm.createForm(parent, numberUtility));
                 form.getToolbar().setBackCommand(" ", new ActionListener<ActionEvent>() {
                     @Override
                     public void actionPerformed(ActionEvent ee) {

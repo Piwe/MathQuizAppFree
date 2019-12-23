@@ -15,6 +15,7 @@ import com.codename1.ui.events.ActionEvent;
 import com.codename1.ui.events.ActionListener;
 import com.codename1.ui.layouts.BorderLayout;
 import com.codename1.ui.layouts.GridLayout;
+import com.codename1.ui.util.Resources;
 import za.co.netbrain.quiz.numbers.NumberUtility;
 
 /**
@@ -28,7 +29,7 @@ public class Division extends FormMain {
         return getResources().getImage(image);
     }
     
-    private NumberUtility numberUtility = new NumberUtility();
+    private Resources myResources;
 
     @Override
     public String getDisplayName() {
@@ -50,13 +51,12 @@ public class Division extends FormMain {
         return getResources().getImage("logo.jpg");
     }
 
-    @Override
-    public Container createForm(Form parent) {
+    public Container createForm(Form parent,NumberUtility numberUtility) {
 
-        Container numbers = BorderLayout.center(getNumbers(parent));
+        Container numbers = BorderLayout.center(getNumbers(parent, numberUtility));
         numbers.setUIID("InputContainerForeground");
 
-        Container actualContent = LayeredLayout.encloseIn(getNumbers(parent));
+        Container actualContent = LayeredLayout.encloseIn(getNumbers(parent, numberUtility));
 
         Container quizNumbers;
         if (!isTablet()) {
@@ -81,13 +81,13 @@ public class Division extends FormMain {
 
     }
 
-    public ComponentGroup getNumbers(Form parent) {
+    public ComponentGroup getNumbers(Form parent, NumberUtility numberUtility) {
 
         ComponentGroup numbersGroup = new ComponentGroup();
         numbersGroup.setTactileTouch(true);
         numbersGroup.setScrollableY(true);
 
-        int limit = numberUtility.getNumberList("beginner");
+        int limit = numberUtility.getNumberList(numberUtility.getLevel());
         
         for (int x = 0; x < limit; x++) {
 
@@ -103,7 +103,7 @@ public class Division extends FormMain {
 
             if ((firstValue > secondValue) && (firstValue % secondValue == 0)) {
                 rowContainer.addComponent(new Label("" + numberUtility.getLeftList().get(x)));
-                rowContainer.addComponent(new Label("%"));
+                rowContainer.addComponent(new Label(getMyResources().getImage("devide.jpg").scaled(100, 100)));
 
                 rowContainer.addComponent(new Label("" + numberUtility.getRightList().get(x)));
                 rowContainer.addComponent(new Label("="));
@@ -117,10 +117,10 @@ public class Division extends FormMain {
                         try {
 
                             if (Integer.valueOf(result.getText()).equals(resultValue)) {
-                                answer.setIcon(getResources().getImage("trophy.jpg").scaled(100, 100));
+                                answer.setIcon(getMyResources().getImage("trophy.jpg").scaled(100, 100));
                                 result.setEditable(false);
                             } else {
-                                answer.setIcon(getResources().getImage("tryagain.jpg").scaled(100, 100));
+                                answer.setIcon(getMyResources().getImage("tryagain.jpg").scaled(100, 100));
                             }
                         } catch (NumberFormatException nfe) {
                         }
@@ -149,10 +149,10 @@ public class Division extends FormMain {
                         try {
 
                             if (Integer.valueOf(result.getText()).equals(resultValue)) {
-                                answer.setIcon(getResources().getImage("trophy.jpg").scaled(100, 100));
+                                answer.setIcon(getMyResources().getImage("trophy.jpg").scaled(100, 100));
                                 result.setEditable(false);
                             } else {
-                                answer.setIcon(getResources().getImage("tryagain.jpg").scaled(100, 100));
+                                answer.setIcon(getMyResources().getImage("tryagain.jpg").scaled(100, 100));
                             }
                         } catch (NumberFormatException nfe) {
 
@@ -176,5 +176,13 @@ public class Division extends FormMain {
         } else {*/
         return numbersGroup;
         //}
+    }
+
+    public Resources getMyResources() {
+        return myResources;
+    }
+
+    public void setMyResources(Resources myResources) {
+        this.myResources = myResources;
     }
 }
