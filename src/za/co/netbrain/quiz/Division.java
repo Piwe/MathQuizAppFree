@@ -102,10 +102,10 @@ public class Division extends FormMain {
             Label answer = new Label();
 
             if ((firstValue > secondValue) && (firstValue % secondValue == 0)) {
-                rowContainer.addComponent(new Label("" + numberUtility.getLeftList().get(x)));
+                rowContainer.addComponent(new Label(" " + numberUtility.getLeftList().get(x)));
                 rowContainer.addComponent(new Label(getMyResources().getImage("devide.jpg").scaled(100, 100)));
 
-                rowContainer.addComponent(new Label("" + numberUtility.getRightList().get(x)));
+                rowContainer.addComponent(new Label(" " + numberUtility.getRightList().get(x)));
                 rowContainer.addComponent(new Label("="));
 
                 Integer resultValue = firstValue / secondValue;
@@ -134,10 +134,10 @@ public class Division extends FormMain {
                 }
             }
             if ((secondValue > firstValue) && (secondValue % firstValue == 0)) {
-                rowContainer.addComponent(new Label("" + numberUtility.getRightList().get(x)));
-                rowContainer.addComponent(new Label("%"));
+                rowContainer.addComponent(new Label(" " + numberUtility.getRightList().get(x)));
+                rowContainer.addComponent(new Label(getMyResources().getImage("devide.jpg").scaled(100, 100)));
 
-                rowContainer.addComponent(new Label("" + numberUtility.getLeftList().get(x)));
+                rowContainer.addComponent(new Label(" " + numberUtility.getLeftList().get(x)));
                 rowContainer.addComponent(new Label("="));
 
                 Integer resultValue = secondValue / firstValue;
@@ -168,14 +168,7 @@ public class Division extends FormMain {
             }
             parent.revalidate();
         }
-
-        /*if ((firstValue == 4) && (counter == 2)) {
-            System.out.println("firstValue : " + firstValue);
-            populateStaticLists();
-            return getStaticDivisionsGroup();
-        } else {*/
         return numbersGroup;
-        //}
     }
 
     public Resources getMyResources() {

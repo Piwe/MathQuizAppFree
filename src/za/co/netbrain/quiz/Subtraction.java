@@ -97,10 +97,10 @@ public class Subtraction extends FormMain {
             Label answer = new Label();
 
             if (secondValue > firstValue) {
-                rowContainer.addComponent(new Label("" + numberUtility.getRightList().get(x)));
+                rowContainer.addComponent(new Label(" " + numberUtility.getRightList().get(x)));
                 rowContainer.addComponent(new Label(getMyResources().getImage("minus.jpg").scaled(100, 100)));
 
-                rowContainer.addComponent(new Label("" + numberUtility.getLeftList().get(x)));
+                rowContainer.addComponent(new Label(" " + numberUtility.getLeftList().get(x)));
                 rowContainer.addComponent(new Label("="));
 
                 Integer resultValue = secondValue - firstValue;
@@ -119,10 +119,10 @@ public class Subtraction extends FormMain {
                 });
 
             } else {
-                rowContainer.addComponent(new Label("" + numberUtility.getLeftList().get(x)));
+                rowContainer.addComponent(new Label(" " + numberUtility.getLeftList().get(x)));
                 rowContainer.addComponent(new Label(getMyResources().getImage("minus.jpg").scaled(100, 100)));
 
-                rowContainer.addComponent(new Label("" + numberUtility.getRightList().get(x)));
+                rowContainer.addComponent(new Label(" " + numberUtility.getRightList().get(x)));
                 rowContainer.addComponent(new Label("="));
 
                 Integer resultValue = firstValue - secondValue;

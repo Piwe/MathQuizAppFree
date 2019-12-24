@@ -89,11 +89,11 @@ public class Addition extends FormMain {
             Container rowContainer = new Container(new GridLayout(6));
 
             Integer firstValue = numberUtility.getLeftList().get(x);
-            rowContainer.addComponent(new Label("" + numberUtility.getLeftList().get(x)));
+            rowContainer.addComponent(new Label(" " + numberUtility.getLeftList().get(x)));
             rowContainer.addComponent(new Label(getMyResources().getImage("plus.jpg").scaled(100, 100)));
 
             Integer secondValue = numberUtility.getRightList().get(x);
-            rowContainer.addComponent(new Label("" + numberUtility.getRightList().get(x)));
+            rowContainer.addComponent(new Label(" " + numberUtility.getRightList().get(x)));
             rowContainer.addComponent(new Label(" = "));
 
             TextField result = new TextField();
