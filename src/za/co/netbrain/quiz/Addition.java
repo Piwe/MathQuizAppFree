@@ -61,7 +61,6 @@ public class Addition extends FormMain {
             Component.setSameWidth(actualContent, placeholder);
 
             quizNumbers = BorderLayout.center(placeholder);
-
             parent.addShowListener(e -> {
                 if (placeholder.getParent() != null) {
                     quizNumbers.replace(placeholder, actualContent, CommonTransitions.createFade(1500));
@@ -89,11 +88,11 @@ public class Addition extends FormMain {
             Container rowContainer = new Container(new GridLayout(6));
 
             Integer firstValue = numberUtility.getLeftList().get(x);
-            rowContainer.addComponent(new Label(" " + numberUtility.getLeftList().get(x)));
+            rowContainer.addComponent(new Label("" + numberUtility.getLeftList().get(x)));
             rowContainer.addComponent(new Label(getMyResources().getImage("plus.jpg").scaled(100, 100)));
 
             Integer secondValue = numberUtility.getRightList().get(x);
-            rowContainer.addComponent(new Label(" " + numberUtility.getRightList().get(x)));
+            rowContainer.addComponent(new Label("" + numberUtility.getRightList().get(x)));
             rowContainer.addComponent(new Label(" = "));
 
             TextField result = new TextField();
@@ -108,7 +107,7 @@ public class Addition extends FormMain {
                         answer.setIcon(getMyResources().getImage("trophy.jpg").scaled(100, 100));
                         result.setEditable(false);
                     } else {
-                        answer.setIcon(getMyResources().getImage("tryagain.jpg").scaled(100, 100));
+                        answer.setIcon(getMyResources().getImage("tryagain.png").scaled(100, 100));
                     }
                 } catch (NumberFormatException nfe) {
 

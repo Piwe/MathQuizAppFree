@@ -66,8 +66,6 @@ public class Division extends FormMain {
             Component.setSameWidth(actualContent, placeholder);
 
             quizNumbers = BorderLayout.center(placeholder);
-            System.out.println("QuizNumbers : " + quizNumbers.getComponentCount());
-
             parent.addShowListener(e -> {
                 if (placeholder.getParent() != null) {
                     quizNumbers.replace(placeholder, actualContent, CommonTransitions.createFade(1500));
@@ -120,7 +118,7 @@ public class Division extends FormMain {
                                 answer.setIcon(getMyResources().getImage("trophy.jpg").scaled(100, 100));
                                 result.setEditable(false);
                             } else {
-                                answer.setIcon(getMyResources().getImage("tryagain.jpg").scaled(100, 100));
+                                answer.setIcon(getMyResources().getImage("tryagain.png").scaled(100, 100));
                             }
                         } catch (NumberFormatException nfe) {
                         }
@@ -152,7 +150,7 @@ public class Division extends FormMain {
                                 answer.setIcon(getMyResources().getImage("trophy.jpg").scaled(100, 100));
                                 result.setEditable(false);
                             } else {
-                                answer.setIcon(getMyResources().getImage("tryagain.jpg").scaled(100, 100));
+                                answer.setIcon(getMyResources().getImage("tryagain.png").scaled(100, 100));
                             }
                         } catch (NumberFormatException nfe) {
 
@@ -168,6 +166,9 @@ public class Division extends FormMain {
             }
             parent.revalidate();
         }
+        numberUtility.getLeftList().clear();
+        numberUtility.getRightList().clear();
+        
         return numbersGroup;
     }
 

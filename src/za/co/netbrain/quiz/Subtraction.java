@@ -61,7 +61,6 @@ public class Subtraction extends FormMain {
             Component.setSameWidth(actualContent, placeholder);
 
             quizNumbers = BorderLayout.center(placeholder);
-
             parent.addShowListener(e -> {
                 if (placeholder.getParent() != null) {
                     quizNumbers.replace(placeholder, actualContent, CommonTransitions.createFade(1500));
@@ -111,7 +110,7 @@ public class Subtraction extends FormMain {
                             answer.setIcon(getMyResources().getImage("trophy.jpg").scaled(100, 100));
                             result.setEditable(false);
                         } else {
-                            answer.setIcon(getMyResources().getImage("tryagain.jpg").scaled(100, 100));
+                            answer.setIcon(getMyResources().getImage("tryagain.png").scaled(100, 100));
                         }
                     } catch (NumberFormatException nfe) {
 
@@ -133,7 +132,7 @@ public class Subtraction extends FormMain {
                             answer.setIcon(getMyResources().getImage("trophy.jpg").scaled(100, 100));
                             result.setEditable(false);
                         } else {
-                            answer.setIcon(getMyResources().getImage("tryagain.jpg").scaled(100, 100));
+                            answer.setIcon(getMyResources().getImage("tryagain.png").scaled(100, 100));
                         }
                     } catch (NumberFormatException nfe) {
 

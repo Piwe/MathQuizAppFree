@@ -1,0 +1,86 @@
+form_main -> begin -> Add, sub, div, multi
+form_main -> intermed -> Add, sub, div, multi
+form_main -> advanc -> Add, sub, div, multi
+  
+ArrayList of 4 shapes
+List<ArrayList of 4 shapes>
+
+1212
+1122
+1231
+2121
+
+123123
+112233
+123123
+
+Training is defined as, “The act, process, or method of one that seeks to improve skill, knowledge, 
+or experience in a certain area”. ... Practice is about getting enough reps in so you can perform your skill instinctively. 
+Training is about being able to perform that skill better than you could before.
+
+Marimani 25401
+
+for (int x=1;x<5;x++) {
+	if (x == 1) {
+		rowList.add(x)
+	}
+	if (x == 2) {
+	    rowList.add(x)
+	}
+	if (x == 3) {
+	    rowList.add(x-2)
+	}
+	if (x == 4) {
+	    rowList.add(x-2)
+	}
+}
+//////////////////////////////////////////////////
+
+for (int x=1;x<5;x++) {
+	if (x == 1) {
+		rowList.add(x)
+	}
+	if (x == 2) {
+	    rowList.add(x-1)
+	}
+	if (x == 3) {
+	    rowList.add(x-1)
+	}
+	if (x == 4) {
+	    rowList.add(x-2)
+	}
+}
+///////////////////////////////////////////////////
+
+for (int x=1;x<5;x++) {
+	if (x == 1) {
+		rowList.add(x)
+	}
+	if (x == 2) {
+	    rowList.add(x)
+	}
+	if (x == 3) {
+	    rowList.add(x)
+	}
+	if (x == 4) {
+	    rowList.add(x-3)
+	}
+}
+///////////////////////////////////////////////////
+
+for (int x=1;x<6;x++) {
+	if (x == 2) {
+		rowList.add(x)
+	}
+	if (x == 3) {
+	    rowList.add(x-1)
+	}
+	if (x == 4) {
+	    rowList.add(x-2)
+	}
+	if (x == 5) {
+	    rowList.add(x-4)
+	}
+}
+
+

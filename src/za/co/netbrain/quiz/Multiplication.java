@@ -15,6 +15,7 @@ import com.codename1.ui.events.ActionEvent;
 import com.codename1.ui.events.ActionListener;
 import com.codename1.ui.layouts.BorderLayout;
 import com.codename1.ui.layouts.GridLayout;
+import com.codename1.ui.plaf.Border;
 import com.codename1.ui.util.Resources;
 import za.co.netbrain.quiz.numbers.NumberUtility;
 
@@ -61,7 +62,6 @@ public class Multiplication extends FormMain {
             Component.setSameWidth(actualContent, placeholder);
 
             quizNumbers = BorderLayout.center(placeholder);
-
             parent.addShowListener(e -> {
                 if (placeholder.getParent() != null) {
                     quizNumbers.replace(placeholder, actualContent, CommonTransitions.createFade(1500));
@@ -86,6 +86,7 @@ public class Multiplication extends FormMain {
         for (int x = 0; x < limit; x++) {
 
             Container rowContainer = new Container(new GridLayout(6));
+            rowContainer.getStyle().setBorder(Border.createBevelRaised());
 
             Integer firstValue = numberUtility.getLeftList().get(x);
             rowContainer.addComponent(new Label(" " + numberUtility.getLeftList().get(x)));
@@ -109,7 +110,7 @@ public class Multiplication extends FormMain {
                         answer.setIcon(getMyResources().getImage("trophy.jpg").scaled(100, 100));
                         result.setEditable(false);
                     } else {
-                        answer.setIcon(getMyResources().getImage("tryagain.jpg").scaled(100, 100));
+                        answer.setIcon(getMyResources().getImage("tryagain.png").scaled(100, 100));
                     }
                 } catch (NumberFormatException nfe) {
 

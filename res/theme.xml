@@ -8,8 +8,6 @@
     <image name="circle-line.png" type="multi"  />
     <image name="circle.png" type="multi"  />
     <image name="city-landmark-lights-night.jpg"  />
-    <image name="codenameone-icon-background.png" type="multi"  />
-    <image name="codenameone-icon-foreground.png" type="multi"  />
     <image name="devide.jpg"  />
     <image name="eight.jpg"  />
     <image name="equals.jpg"  />
@@ -17,6 +15,7 @@
     <image name="form_addition.png"  />
     <image name="form_division.png"  />
     <image name="form_multiplication.png"  />
+    <image name="form_patternmatching.png"  />
     <image name="form_subtraction.png"  />
     <image name="four.jpg"  />
     <image name="icon.png"  />
@@ -36,6 +35,16 @@
     <image name="RedCard.borderTop_1.png" type="multi"  />
     <image name="RedCard.borderTopL_1.png" type="multi"  />
     <image name="RedCard.borderTopR_1.png" type="multi"  />
+    <image name="s_diamond.jpg"  />
+    <image name="s_moon.jpg"  />
+    <image name="s_octagon.jpg"  />
+    <image name="s_oval.jpg"  />
+    <image name="s_rectangle.jpg"  />
+    <image name="s_round.jpg"  />
+    <image name="s_square.jpg"  />
+    <image name="s_star.jpg"  />
+    <image name="s_trapezium.jpg"  />
+    <image name="s_triangle.jpg"  />
     <image name="seven.jpg"  />
     <image name="six.jpg"  />
     <image name="ten.jpg"  />
@@ -403,6 +412,6 @@
     </theme>
     <image name="three.jpg"  />
     <image name="trophy.jpg"  />
-    <image name="tryagain.jpg"  />
+    <image name="tryagain.png"  />
     <image name="two.jpg"  />
 </resource>
