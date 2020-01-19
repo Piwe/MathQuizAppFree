@@ -7,6 +7,8 @@ import com.codename1.ui.Form;
 import com.codename1.ui.Image;
 import com.codename1.ui.events.ActionEvent;
 import com.codename1.ui.events.ActionListener;
+import com.codename1.ui.plaf.RoundBorder;
+import com.codename1.ui.plaf.Style;
 import com.codename1.ui.util.Resources;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -18,7 +20,7 @@ public abstract class FormMain {
     private Resources res;
         
     Form myForm = new Form();
-    
+    private Image blank;
     
 
     public void init(Resources res) {
@@ -66,6 +68,8 @@ public abstract class FormMain {
         formsGroup.setScrollableY(true);
         
         Button addition = new Button(getImage("form_addition.png").scaled(400, 300));
+        Style additionStyle = addition.getAllStyles();
+        additionStyle.setBorder(RoundBorder.create().rectangle(true).shadowOpacity(100).color(1));     
         addition.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent evt) {
@@ -85,6 +89,8 @@ public abstract class FormMain {
             }
         });
         Button subtraction = new Button(getImage("form_subtraction.png").scaled(400, 300));
+        Style subtractionStyle = subtraction.getAllStyles();
+        subtractionStyle.setBorder(RoundBorder.create().rectangle(true).shadowOpacity(100).color(1));
         subtraction.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent evt) {
@@ -104,6 +110,8 @@ public abstract class FormMain {
             }
         });
         Button division = new Button(getImage("form_division.png").scaled(400, 300));
+        Style divisionStyle = division.getAllStyles();
+        divisionStyle.setBorder(RoundBorder.create().rectangle(true).shadowOpacity(100).color(1)); 
         division.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent evt) {
@@ -123,6 +131,8 @@ public abstract class FormMain {
             }
         });
         Button multiplication = new Button(getImage("form_multiplication.png").scaled(400, 300));
+        Style multiplicationStyle = multiplication.getAllStyles();
+        multiplicationStyle.setBorder(RoundBorder.create().rectangle(true).shadowOpacity(100).color(1));
         multiplication.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent evt) {
@@ -142,6 +152,8 @@ public abstract class FormMain {
             }
         });
         Button patternMatching = new Button(getImage("form_patternmatching.png").scaled(400, 300));
+        Style patternStyle = patternMatching.getAllStyles();
+        patternStyle.setBorder(RoundBorder.create().create().rectangle(true).shadowOpacity(100).color(1)); 
         patternMatching.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent evt) {
@@ -176,16 +188,18 @@ public abstract class FormMain {
         
      List<Image> patternImages = new ArrayList<>();   
              
-     Image diamond = getImage("s_diamond.jpg").scaled(100, 100);
-     Image moon = getImage("s_moon.jpg").scaled(100, 100);
-     Image octagon = getImage("s_octagon.jpg").scaled(100, 100);
-     Image oval = getImage("s_oval.jpg").scaled(100, 100);
-     Image rectangle = getImage("s_rectangle.jpg").scaled(100, 100);
-     Image round = getImage("s_round.jpg").scaled(100, 100);
-     Image square = getImage("s_square.jpg").scaled(100, 100);
-     Image star = getImage("s_star.jpg").scaled(100, 100);
-     Image trapezium = getImage("s_trapezium.jpg").scaled(100, 100);
-     Image triangle = getImage("s_triangle.jpg").scaled(100, 100);
+     Image diamond = getImage("s_diamond.png").scaled(50, 50);
+     Image moon = getImage("s_moon.png").scaled(50, 50);
+     Image octagon = getImage("s_octagon.png").scaled(50, 50);
+     Image oval = getImage("s_oval.png").scaled(50, 50);
+     Image rectangle = getImage("s_rectangle.png").scaled(50, 50);
+     Image round = getImage("s_round.png").scaled(50, 50);
+     Image square = getImage("s_square.png").scaled(50, 50);
+     Image star = getImage("s_star.png").scaled(50, 50);
+     Image trapezium = getImage("s_trapezium.png").scaled(50, 50);
+     Image triangle = getImage("s_triangle.png").scaled(50, 50);
+       
+     setBlank(getImage("circle.png").scaled(100, 100));
      
      patternImages.add(diamond);
      patternImages.add(moon);
@@ -203,5 +217,15 @@ public abstract class FormMain {
      return patternImages;
      
     }
+
+    public Image getBlank() {
+        return blank;
+    }
+
+    public void setBlank(Image blank) {
+        this.blank = blank;
+    }
+    
+    
     
 }

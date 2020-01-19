@@ -101,7 +101,7 @@ public class Division extends FormMain {
 
             if ((firstValue > secondValue) && (firstValue % secondValue == 0)) {
                 rowContainer.addComponent(new Label(" " + numberUtility.getLeftList().get(x)));
-                rowContainer.addComponent(new Label(getMyResources().getImage("devide.jpg").scaled(100, 100)));
+                rowContainer.addComponent(new Label(getMyResources().getImage("devide.png").scaled(100, 100)));
 
                 rowContainer.addComponent(new Label(" " + numberUtility.getRightList().get(x)));
                 rowContainer.addComponent(new Label("="));

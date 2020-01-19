@@ -10,10 +10,15 @@ import com.codename1.ui.Component;
 import com.codename1.ui.Label;
 import com.codename1.ui.layouts.LayeredLayout;
 import com.codename1.ui.animations.CommonTransitions;
+import com.codename1.ui.events.ActionEvent;
+import com.codename1.ui.events.ActionListener;
 import com.codename1.ui.layouts.BorderLayout;
 import com.codename1.ui.layouts.GridLayout;
+import com.codename1.ui.plaf.RoundBorder;
+import com.codename1.ui.plaf.Style;
 import com.codename1.ui.util.Resources;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import za.co.netbrain.quiz.numbers.NumberUtility;
 
@@ -23,8 +28,8 @@ import za.co.netbrain.quiz.numbers.NumberUtility;
  */
 public class PatternMatching extends FormMain {
 
-    private List<Image> myPatternImages = new ArrayList<>();   
-    
+    private List<Image> myPatternImages = new ArrayList<>();
+
     @Override
     public String getDisplayName() {
         return "Pattern Matching";
@@ -82,9 +87,9 @@ public class PatternMatching extends FormMain {
         patternGroup.setTactileTouch(true);
         patternGroup.setScrollableY(true);
 
-        for (int x=0;x<getImageContainers().size();x++) {
+        for (int x = 0; x < getImageContainers().size(); x++) {
             patternGroup.add(getImageContainers().get(x));
-        }        
+        }
         parent.revalidate();
 
         return patternGroup;
@@ -108,7 +113,7 @@ public class PatternMatching extends FormMain {
 
         List<Container> myPatternContainer = new ArrayList<>();
 
-        for (int x = 0; x < 10; x++) {
+        for (int x = 1; x < 11; x++) {
             if (x == 1) {
                 rowList_1.add(getMyPatternImages().get(x));
             }
@@ -119,14 +124,25 @@ public class PatternMatching extends FormMain {
                 rowList_1.add(getMyPatternImages().get(x));
             }
             if (x == 4) {
-                rowList_1.add(getMyPatternImages().get(x));
+                rowList_1.add(getBlank());
                 break;
             }
         }
-        Container rowContainer_1 = new Container(new GridLayout(4));
+        Button row1Image = new Button(getMyPatternImages().get(1));
+        row1Image.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent evt) {
+
+            }
+        });
+        Container rowContainer_1 = new Container(new GridLayout(5));
         for (int x = 0; x < rowList_1.size(); x++) {
-            rowContainer_1.add(new Button(rowList_1.get(x)));
+            Button rowButton = new Button(rowList_1.get(x));
+            Style rowButtonStyle = rowButton.getAllStyles();
+            rowButtonStyle.setBorder(RoundBorder.create().shadowOpacity(100));
+            rowContainer_1.add(rowButton);
         }
+        rowContainer_1.add(row1Image);
         myPatternContainer.add(rowContainer_1);
 
         for (int x = 1; x < 11; x++) {
@@ -137,17 +153,28 @@ public class PatternMatching extends FormMain {
                 rowList_2.add(getMyPatternImages().get(x - 1));
             }
             if (x == 3) {
-                rowList_2.add(getMyPatternImages().get(x - 1));
+                rowList_2.add(getBlank());
             }
             if (x == 4) {
                 rowList_2.add(getMyPatternImages().get(x - 2));
                 break;
             }
         }
-        Container rowContainer_2 = new Container(new GridLayout(4));
+        Button row2Image = new Button(getMyPatternImages().get(2));
+        row2Image.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent evt) {
+
+            }
+        });
+        Container rowContainer_2 = new Container(new GridLayout(5));
         for (int x = 0; x < rowList_2.size(); x++) {
-            rowContainer_2.add(new Button(rowList_2.get(x)));
+            Button rowButton = new Button(rowList_2.get(x));
+            Style rowButtonStyle = rowButton.getAllStyles();
+            rowButtonStyle.setBorder(RoundBorder.create().shadowOpacity(100));
+            rowContainer_2.add(rowButton);
         }
+        rowContainer_2.add(row2Image);
         myPatternContainer.add(rowContainer_2);
 
         for (int x = 1; x < 11; x++) {
@@ -158,22 +185,33 @@ public class PatternMatching extends FormMain {
                 rowList_3.add(getMyPatternImages().get(x));
             }
             if (x == 3) {
-                rowList_3.add(getMyPatternImages().get(x));
+                rowList_3.add(getBlank());
             }
             if (x == 4) {
                 rowList_3.add(getMyPatternImages().get(x - 3));
                 break;
             }
         }
-        Container rowContainer_3 = new Container(new GridLayout(4));
+        Button row3Image = new Button(getMyPatternImages().get(3));
+        row3Image.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent evt) {
+
+            }
+        });
+        Container rowContainer_3 = new Container(new GridLayout(5));
         for (int x = 0; x < rowList_3.size(); x++) {
-            rowContainer_3.add(new Button(rowList_3.get(x)));
+            Button rowButton = new Button(rowList_3.get(x));
+            Style rowButtonStyle = rowButton.getAllStyles();
+            rowButtonStyle.setBorder(RoundBorder.create().shadowOpacity(100));
+            rowContainer_3.add(rowButton);
         }
+        rowContainer_3.add(row3Image);
         myPatternContainer.add(rowContainer_3);
 
-        for (int x = 1; x<5; x++) {
+        for (int x = 1; x < 11; x++) {
             if (x == 1) {
-                rowList_4.add(getMyPatternImages().get(x));
+                rowList_4.add(getBlank());
             }
             if (x == 2) {
                 rowList_4.add(getMyPatternImages().get(x));
@@ -186,12 +224,24 @@ public class PatternMatching extends FormMain {
                 break;
             }
         }
-        Container rowContainer_4 = new Container(new GridLayout(4));
+        Button row4Image = new Button(getMyPatternImages().get(4));
+        row4Image.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent evt) {
+
+            }
+        });
+        Container rowContainer_4 = new Container(new GridLayout(5));
         for (int x = 0; x < rowList_4.size(); x++) {
-            rowContainer_4.add(new Button(rowList_4.get(x)));
+            Button rowButton = new Button(rowList_4.get(x));
+            Style rowButtonStyle = rowButton.getAllStyles();
+            rowButtonStyle.setBorder(RoundBorder.create().shadowOpacity(100));
+            rowContainer_4.add(rowButton);
         }
+        rowContainer_4.add(row4Image);
         myPatternContainer.add(rowContainer_4);
 
+        //Collections.shuffle(myPatternContainer);
         return myPatternContainer;
 
     }
@@ -204,8 +254,4 @@ public class PatternMatching extends FormMain {
         this.myPatternImages = myPatternImages;
     }
 
-
-    
 }
-
-

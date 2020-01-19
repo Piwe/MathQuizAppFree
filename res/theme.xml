@@ -8,7 +8,7 @@
     <image name="circle-line.png" type="multi"  />
     <image name="circle.png" type="multi"  />
     <image name="city-landmark-lights-night.jpg"  />
-    <image name="devide.jpg"  />
+    <image name="devide.png"  />
     <image name="eight.jpg"  />
     <image name="equals.jpg"  />
     <image name="five.jpg"  />
@@ -35,16 +35,18 @@
     <image name="RedCard.borderTop_1.png" type="multi"  />
     <image name="RedCard.borderTopL_1.png" type="multi"  />
     <image name="RedCard.borderTopR_1.png" type="multi"  />
-    <image name="s_diamond.jpg"  />
-    <image name="s_moon.jpg"  />
-    <image name="s_octagon.jpg"  />
-    <image name="s_oval.jpg"  />
-    <image name="s_rectangle.jpg"  />
-    <image name="s_round.jpg"  />
-    <image name="s_square.jpg"  />
-    <image name="s_star.jpg"  />
-    <image name="s_trapezium.jpg"  />
-    <image name="s_triangle.jpg"  />
+    <image name="s_diamond.png"  />
+    <image name="s_heart.png"  />
+    <image name="s_hexagon.png"  />
+    <image name="s_moon.png"  />
+    <image name="s_octagon.png"  />
+    <image name="s_oval.png"  />
+    <image name="s_rectangle.png"  />
+    <image name="s_round.png"  />
+    <image name="s_square.png"  />
+    <image name="s_star.png"  />
+    <image name="s_trapezium.png"  />
+    <image name="s_triangle.png"  />
     <image name="seven.jpg"  />
     <image name="six.jpg"  />
     <image name="ten.jpg"  />
