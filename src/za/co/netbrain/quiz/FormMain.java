@@ -8,6 +8,7 @@ import com.codename1.ui.Image;
 import com.codename1.ui.events.ActionEvent;
 import com.codename1.ui.events.ActionListener;
 import com.codename1.ui.plaf.RoundBorder;
+import com.codename1.ui.plaf.RoundRectBorder;
 import com.codename1.ui.plaf.Style;
 import com.codename1.ui.util.Resources;
 import java.util.ArrayList;
@@ -69,7 +70,7 @@ public abstract class FormMain {
         
         Button addition = new Button(getImage("form_addition.png").scaled(400, 300));
         Style additionStyle = addition.getAllStyles();
-        additionStyle.setBorder(RoundBorder.create().rectangle(true).shadowOpacity(100).color(1));     
+        additionStyle.setBorder(RoundRectBorder.create().shadowOpacity(100));     
         addition.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent evt) {
@@ -90,7 +91,7 @@ public abstract class FormMain {
         });
         Button subtraction = new Button(getImage("form_subtraction.png").scaled(400, 300));
         Style subtractionStyle = subtraction.getAllStyles();
-        subtractionStyle.setBorder(RoundBorder.create().rectangle(true).shadowOpacity(100).color(1));
+        subtractionStyle.setBorder(RoundRectBorder.create().shadowOpacity(100));
         subtraction.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent evt) {
@@ -111,7 +112,7 @@ public abstract class FormMain {
         });
         Button division = new Button(getImage("form_division.png").scaled(400, 300));
         Style divisionStyle = division.getAllStyles();
-        divisionStyle.setBorder(RoundBorder.create().rectangle(true).shadowOpacity(100).color(1)); 
+        divisionStyle.setBorder(RoundRectBorder.create().shadowOpacity(100)); 
         division.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent evt) {
@@ -132,7 +133,7 @@ public abstract class FormMain {
         });
         Button multiplication = new Button(getImage("form_multiplication.png").scaled(400, 300));
         Style multiplicationStyle = multiplication.getAllStyles();
-        multiplicationStyle.setBorder(RoundBorder.create().rectangle(true).shadowOpacity(100).color(1));
+        multiplicationStyle.setBorder(RoundRectBorder.create().shadowOpacity(100));
         multiplication.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent evt) {
@@ -153,7 +154,7 @@ public abstract class FormMain {
         });
         Button patternMatching = new Button(getImage("form_patternmatching.png").scaled(400, 300));
         Style patternStyle = patternMatching.getAllStyles();
-        patternStyle.setBorder(RoundBorder.create().create().rectangle(true).shadowOpacity(100).color(1)); 
+        patternStyle.setBorder(RoundRectBorder.create().create().shadowOpacity(100)); 
         patternMatching.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent evt) {
