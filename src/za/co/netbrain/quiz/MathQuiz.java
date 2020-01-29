@@ -139,7 +139,8 @@ public class MathQuiz {
         FormMain[] pages = new FormMain[]{
             new Level_Beginner(),
             new Level_Intermediate(),
-            new Level_Advanced()
+            new Level_Advanced(),
+            new Performance()
         };
 
         for (FormMain d : pages) {

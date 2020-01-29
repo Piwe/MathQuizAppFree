@@ -16,7 +16,7 @@ import com.codename1.ui.events.ActionListener;
 import com.codename1.ui.layouts.BorderLayout;
 import com.codename1.ui.layouts.GridLayout;
 import com.codename1.ui.util.Resources;
-import za.co.netbrain.quiz.numbers.NumberUtility;
+import za.co.netbrain.quiz.utils.NumberUtility;
 
 /**
  *
@@ -133,7 +133,7 @@ public class Division extends FormMain {
             }
             if ((secondValue > firstValue) && (secondValue % firstValue == 0)) {
                 rowContainer.addComponent(new Label(" " + numberUtility.getRightList().get(x)));
-                rowContainer.addComponent(new Label(getMyResources().getImage("devide.jpg").scaled(100, 100)));
+                rowContainer.addComponent(new Label(getMyResources().getImage("devide.png").scaled(100, 100)));
 
                 rowContainer.addComponent(new Label(" " + numberUtility.getLeftList().get(x)));
                 rowContainer.addComponent(new Label("="));

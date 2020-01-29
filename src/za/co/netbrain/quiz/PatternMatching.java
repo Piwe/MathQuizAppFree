@@ -20,7 +20,7 @@ import com.codename1.ui.util.Resources;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import za.co.netbrain.quiz.numbers.NumberUtility;
+import za.co.netbrain.quiz.utils.NumberUtility;
 
 /**
  *
@@ -113,6 +113,7 @@ public class PatternMatching extends FormMain {
 
         List<Container> myPatternContainer = new ArrayList<>();
 
+        ///////////////////////// First Row
         for (int x = 1; x < 11; x++) {
             if (x == 1) {
                 rowList_1.add(getMyPatternImages().get(x));
@@ -136,8 +137,17 @@ public class PatternMatching extends FormMain {
             }
         });
         Container rowContainer_1 = new Container(new GridLayout(5));
+        rowContainer_1.setDropTarget(true);
         for (int x = 0; x < rowList_1.size(); x++) {
             Button rowButton = new Button(rowList_1.get(x));
+
+            if (x == 3) {
+                rowButton.setDropTarget(true);
+            }
+            if (x == 4) {
+                rowButton.setDraggable(true);
+                rowButton.addDropListener(ActionEvent::consume);
+            }
             Style rowButtonStyle = rowButton.getAllStyles();
             rowButtonStyle.setBorder(RoundBorder.create().shadowOpacity(100));
             rowContainer_1.add(rowButton);
@@ -145,6 +155,7 @@ public class PatternMatching extends FormMain {
         rowContainer_1.add(row1Image);
         myPatternContainer.add(rowContainer_1);
 
+        ///////////////////////// Second Row
         for (int x = 1; x < 11; x++) {
             if (x == 1) {
                 rowList_2.add(getMyPatternImages().get(x));
@@ -168,8 +179,17 @@ public class PatternMatching extends FormMain {
             }
         });
         Container rowContainer_2 = new Container(new GridLayout(5));
+        rowContainer_2.setDropTarget(true);
         for (int x = 0; x < rowList_2.size(); x++) {
             Button rowButton = new Button(rowList_2.get(x));
+
+            if (x == 2) {
+                rowButton.setDropTarget(true);
+            }
+            if (x == 4) {
+                rowButton.setDraggable(true);
+                rowButton.addDropListener(ActionEvent::consume);
+            }
             Style rowButtonStyle = rowButton.getAllStyles();
             rowButtonStyle.setBorder(RoundBorder.create().shadowOpacity(100));
             rowContainer_2.add(rowButton);
@@ -177,6 +197,7 @@ public class PatternMatching extends FormMain {
         rowContainer_2.add(row2Image);
         myPatternContainer.add(rowContainer_2);
 
+        ///////////////////////// Third Row
         for (int x = 1; x < 11; x++) {
             if (x == 1) {
                 rowList_3.add(getMyPatternImages().get(x));
@@ -200,8 +221,17 @@ public class PatternMatching extends FormMain {
             }
         });
         Container rowContainer_3 = new Container(new GridLayout(5));
+        rowContainer_3.setDropTarget(true);
         for (int x = 0; x < rowList_3.size(); x++) {
             Button rowButton = new Button(rowList_3.get(x));
+
+            if (x == 2) {
+                rowButton.setDropTarget(true);
+            }
+            if (x == 4) {
+                rowButton.setDraggable(true);
+                rowButton.addDropListener(ActionEvent::consume);
+            }
             Style rowButtonStyle = rowButton.getAllStyles();
             rowButtonStyle.setBorder(RoundBorder.create().shadowOpacity(100));
             rowContainer_3.add(rowButton);
@@ -209,6 +239,7 @@ public class PatternMatching extends FormMain {
         rowContainer_3.add(row3Image);
         myPatternContainer.add(rowContainer_3);
 
+        ///////////////////////// Fourth Row
         for (int x = 1; x < 11; x++) {
             if (x == 1) {
                 rowList_4.add(getBlank());
@@ -232,8 +263,17 @@ public class PatternMatching extends FormMain {
             }
         });
         Container rowContainer_4 = new Container(new GridLayout(5));
+        rowContainer_4.setDropTarget(true);
         for (int x = 0; x < rowList_4.size(); x++) {
             Button rowButton = new Button(rowList_4.get(x));
+
+            if (x == 0) {
+                rowButton.setDropTarget(true);
+            }
+            if (x == 4) {
+                rowButton.setDraggable(true);
+                rowButton.addDropListener(ActionEvent::consume);
+            }
             Style rowButtonStyle = rowButton.getAllStyles();
             rowButtonStyle.setBorder(RoundBorder.create().shadowOpacity(100));
             rowContainer_4.add(rowButton);
@@ -241,7 +281,6 @@ public class PatternMatching extends FormMain {
         rowContainer_4.add(row4Image);
         myPatternContainer.add(rowContainer_4);
 
-        //Collections.shuffle(myPatternContainer);
         return myPatternContainer;
 
     }

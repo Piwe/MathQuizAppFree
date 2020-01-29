@@ -16,7 +16,7 @@ import com.codename1.ui.events.ActionListener;
 import com.codename1.ui.layouts.BorderLayout;
 import com.codename1.ui.layouts.GridLayout;
 import com.codename1.ui.util.Resources;
-import za.co.netbrain.quiz.numbers.NumberUtility;
+import za.co.netbrain.quiz.utils.NumberUtility;
 
 /**
  *

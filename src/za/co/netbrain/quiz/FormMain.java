@@ -7,18 +7,17 @@ import com.codename1.ui.Form;
 import com.codename1.ui.Image;
 import com.codename1.ui.events.ActionEvent;
 import com.codename1.ui.events.ActionListener;
-import com.codename1.ui.plaf.RoundBorder;
 import com.codename1.ui.plaf.RoundRectBorder;
 import com.codename1.ui.plaf.Style;
 import com.codename1.ui.util.Resources;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import za.co.netbrain.quiz.numbers.NumberUtility;
+import za.co.netbrain.quiz.utils.NumberUtility;
 
 public abstract class FormMain {
 
-    private Resources res;
+    Resources res;
         
     Form myForm = new Form();
     private Image blank;
@@ -174,12 +173,34 @@ public abstract class FormMain {
                 form.show();
             }
         });
-        
+        Button sudoku = new Button(getImage("form_patternmatching.png").scaled(400, 300));
+        Style sudokuStyle = sudoku.getAllStyles();
+        sudokuStyle.setBorder(RoundRectBorder.create().create().shadowOpacity(100)); 
+        sudoku.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent evt) {
+                Sudoku_ sudokuForm = new Sudoku_();
+                sudokuForm.setMyResources(res);
+                Form form = new Form("Pattern Matching");
+                form.add(sudokuForm.createForm(parent));
+                form.getToolbar().setBackCommand(" ", new ActionListener<ActionEvent>() {
+                    @Override
+                    public void actionPerformed(ActionEvent ee) {
+                        if (onBack()) {
+                            parent.showBack();
+                        }
+                    }
+                });
+                form.show();
+            }
+        });
+
         formsGroup.addComponent(addition);
         formsGroup.addComponent(subtraction);
         formsGroup.addComponent(division);
         formsGroup.addComponent(multiplication);
         formsGroup.addComponent(patternMatching);
+        formsGroup.addComponent(sudoku);
         
         parent.revalidate();
         return formsGroup;
@@ -189,16 +210,16 @@ public abstract class FormMain {
         
      List<Image> patternImages = new ArrayList<>();   
              
-     Image diamond = getImage("s_diamond.png").scaled(50, 50);
-     Image moon = getImage("s_moon.png").scaled(50, 50);
-     Image octagon = getImage("s_octagon.png").scaled(50, 50);
-     Image oval = getImage("s_oval.png").scaled(50, 50);
-     Image rectangle = getImage("s_rectangle.png").scaled(50, 50);
-     Image round = getImage("s_round.png").scaled(50, 50);
-     Image square = getImage("s_square.png").scaled(50, 50);
-     Image star = getImage("s_star.png").scaled(50, 50);
-     Image trapezium = getImage("s_trapezium.png").scaled(50, 50);
-     Image triangle = getImage("s_triangle.png").scaled(50, 50);
+     Image diamond = getImage("s_diamond.png").scaled(100, 100);
+     Image moon = getImage("s_moon.png").scaled(100, 100);
+     Image octagon = getImage("s_octagon.png").scaled(100, 100);
+     Image oval = getImage("s_oval.png").scaled(100, 100);
+     Image rectangle = getImage("s_rectangle.png").scaled(100, 100);
+     Image round = getImage("s_round.png").scaled(100, 100);
+     Image square = getImage("s_square.png").scaled(100, 100);
+     Image star = getImage("s_star.png").scaled(100, 100);
+     Image trapezium = getImage("s_trapezium.png").scaled(100, 100);
+     Image triangle = getImage("s_triangle.png").scaled(100, 100);
        
      setBlank(getImage("circle.png").scaled(100, 100));
      

@@ -9,7 +9,7 @@ import com.codename1.ui.Label;
 import com.codename1.ui.animations.CommonTransitions;
 import com.codename1.ui.layouts.BorderLayout;
 import com.codename1.ui.layouts.LayeredLayout;
-import za.co.netbrain.quiz.numbers.NumberUtility;
+import za.co.netbrain.quiz.utils.NumberUtility;
 
 /**
  *
