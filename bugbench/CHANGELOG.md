@@ -4,7 +4,7 @@ All notable changes to **BugBench** are listed here. Versions follow
 the calendar-version scheme `<year>.<minor>.<patch>` shared with the
 upstream multi-module project.
 
-## Unreleased
+## 2026.3.0 — local learning, test-style matching & fixes (2026-10-20)
 
 ### README logo on Open VSX
 - The README logo was broken on the Open VSX listing. `vsce` rewrites
