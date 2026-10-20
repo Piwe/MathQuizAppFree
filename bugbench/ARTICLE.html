@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>BugBench: Smarter Java &amp; Kotlin Code Analysis</title>
+  <style>
+    body { max-width: 46rem; margin: 2rem auto; padding: 0 16px; font: 16px/1.6 system-ui, sans-serif; color: #1f2328; background: #fff; }
+    code, pre { font-family: ui-monospace, monospace; background: #f3f4f6; border-radius: 4px; }
+    code { padding: 0 .25em; } pre { padding: .75em 1em; overflow-x: auto; } pre code { padding: 0; }
+    table { border-collapse: collapse; display: block; overflow-x: auto; }
+    th, td { border: 1px solid #d0d7de; padding: .4em .7em; text-align: left; vertical-align: top; }
+    blockquote { margin: 0; padding-left: 1em; border-left: 3px solid #d0d7de; color: #57606a; }
+    hr { border: 0; border-top: 1px solid #d0d7de; margin: 2rem 0; }
+    @media (prefers-color-scheme: dark) {
+      body { color: #e6edf3; background: #0d1117; } a { color: #4493f8; }
+      code, pre { background: #161b22; } th, td { border-color: #30363d; }
+      blockquote { border-color: #30363d; color: #9198a1; } hr { border-top-color: #30363d; }
+    }
+  </style>
+</head>
+<body>
+<h1 id="bugbench-smarter-java-kotlin-code-analysis-for-vs-code-and-kiro">BugBench: Smarter Java &amp; Kotlin Code Analysis for VS Code and Kiro</h1>
+<p>If you write Java or Kotlin for a living, you already know the routine: one linter flags a problem, your IDE underlines another, and you spend half your morning switching between linters, refactor menus, and a half-finished JUnit file. <strong>BugBench</strong> is a VS Code and Kiro extension that puts static analysis, auto-fix refactoring, and JUnit test scaffolding into a single in-editor experience, with a Model Context Protocol (MCP) server bundled in so AI agents can call the same tools you do.</p>
+<p>In this article we&#39;ll tour what BugBench does, how to install it on Kiro or VS Code, how to use it day to day, and why it&#39;s worth a place in your Java toolbelt.</p>
+<hr>
+<h2 id="what-is-bugbench">What is BugBench?</h2>
+<p>BugBench is a JVM-powered language server packaged as an editor extension. It targets <strong>Java and Kotlin</strong> projects and bundles four things into one install:</p>
+<ol>
+<li><strong>A static analysis engine</strong>: PMD 7.5 plus about 60 BugBench rules for Java, and about 40 lightweight checks for Kotlin.</li>
+<li><strong>An auto-fix refactoring engine</strong>: 20 fixers covering 49 rules.</li>
+<li><strong>A JUnit 5 test generator</strong> that recognises Spring, JPA and Camel classes and copies your project&#39;s existing test style.</li>
+<li><strong>An MCP server</strong> so agentic IDEs like <strong>Kiro</strong>, Cursor, Claude Desktop, and Claude Code can call BugBench&#39;s analysis, refactoring and test-generation tools directly.</li>
+</ol>
+<p>BugBench is published on the <a href="https://open-vsx.org/extension/bugbench/bugbench">Open VSX Registry</a>, which is where Kiro gets its extensions. VS Code users install the same <code>.vsix</code> from there.</p>
+<hr>
+<h2 id="features-at-a-glance">Features at a glance</h2>
+<h3 id="1-in-editor-static-analysis">1. In-editor static analysis</h3>
+<p>Open a <code>.java</code>, <code>.kt</code>, or <code>.kts</code> file and BugBench&#39;s language server analyses it and pushes diagnostics into the standard <strong>Problems</strong> panel. Findings use a familiar severity ladder (<em>Blocker / Critical / Major / Minor / Info</em>) and refresh as you edit and save. There&#39;s no project-wide scan to wait for.</p>
+<ul>
+<li><strong>Java:</strong> PMD 7.5&#39;s 94 rules, plus about 60 BugBench rules covering security (hard-coded passwords, weak cryptography, insecure randomness and deserialization, XXE, sensitive data in logs), Spring beans and lifecycle, JPA/Lombok, REST controllers, Apache Camel routes, <code>Optional</code> misuse, dead stores, always-true conditions, infinite recursion and cognitive complexity.</li>
+<li><strong>Kotlin:</strong> about 40 lightweight checks. The editor needs to recognise the files as Kotlin, which usually means having a Kotlin language extension installed.</li>
+</ul>
+<h3 id="2-one-click-auto-fix-refactoring">2. One-click auto-fix refactoring</h3>
+<p>Wherever a finding is auto-fixable, BugBench offers a <strong>lightbulb quick fix</strong>. Its 20 fixers cover 49 rules, including:</p>
+<ul>
+<li><code>try-with-resources</code> conversion</li>
+<li>Empty catch blocks and <code>InterruptedException</code> handling</li>
+<li>Unused imports and local variables</li>
+<li>Cognitive complexity reduction</li>
+<li><code>Optional.get()</code> misuse</li>
+<li>String comparison, boolean and null-check simplification, for-each loops</li>
+<li>Spring lifecycle issues and constructor injection</li>
+<li>REST controller security</li>
+<li>Apache Camel route bugs</li>
+<li>12 Kotlin rules</li>
+</ul>
+<p>Java fixes adapt to the Java version your Maven or Gradle build declares. Applying a quick fix, or running <strong><code>BugBench: Apply auto-fixes to current file</code></strong>, applies every available fix in the file in one pass.</p>
+<h3 id="3-junit-5-test-scaffolding">3. JUnit 5 test scaffolding</h3>
+<p>Above every top-level Java class you&#39;ll see a code lens: <strong>Generate tests with BugBench</strong>. BugBench works out what kind of class it is and picks a matching template:</p>
+<ul>
+<li><code>@RestController</code> / <code>@Controller</code> → <code>@WebMvcTest</code> with <code>@MockBean</code> dependencies</li>
+<li>Repositories → <code>@DataJpaTest</code></li>
+<li>Services, components, configurations, Camel <code>RouteBuilder</code>s and <code>Processor</code>s, and plain classes → Mockito-based tests</li>
+</ul>
+<p>The scaffold also matches the tests you already have. BugBench reads the module&#39;s existing test sources and copies their assertion library (plain JUnit, AssertJ or Hamcrest), method naming (<code>testFoo</code>, <code>shouldFoo</code> or <code>givenX_whenY_thenZ</code>), and whether they use <code>@DisplayName</code> and <code>@Nested</code>. A team that writes <code>assertThat(...).isNotNull()</code> and <code>should…</code> names gets exactly that, with no configuration.</p>
+<p>Generated tests never land on disk silently. The proposal opens in a side editor with a <em>Save as <code>&lt;ClassName&gt;Test.java</code></em> action that places it in the matching <code>src/test/java</code> package. If that file already exists, you get <em>Show diff</em> instead, so you can decide what to merge.</p>
+<h3 id="4-workspace-report">4. Workspace report</h3>
+<p>Run <strong><code>BugBench: Scan workspace and open report</code></strong> and BugBench analyses every source file in your workspace (the first folder, in a multi-root workspace) and opens an HTML report: issue counts per severity and an expandable issue table for each file. It&#39;s handy for a code-health pass before a release.</p>
+<h3 id="5-agent-integration-via-mcp">5. Agent integration via MCP</h3>
+<p>This is the standout feature for anyone using <strong>Kiro</strong> or another agentic IDE. BugBench bundles an MCP server that exposes seven tools:</p>
+<table>
+<thead>
+<tr>
+<th>Tool</th>
+<th>What it does</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>getJavaContext</code></td>
+<td>Returns the Java version, build system, test framework and JDK path</td>
+</tr>
+<tr>
+<td><code>findSymbol</code></td>
+<td>Describes the symbol at a line and column: kind, name, snippet, resolved JDK types</td>
+</tr>
+<tr>
+<td><code>listIssues</code></td>
+<td>Returns BugBench&#39;s findings for a file (up to 200), optionally filtered by severity</td>
+</tr>
+<tr>
+<td><code>listAvailableRefactors</code></td>
+<td>Lists every rule BugBench can auto-fix</td>
+</tr>
+<tr>
+<td><code>previewRefactor</code></td>
+<td>Returns the file with all auto-fixes applied, plus a change log, without writing</td>
+</tr>
+<tr>
+<td><code>applyRefactor</code></td>
+<td>Applies all auto-fixes to a file; dry-run unless <code>confirm=true</code></td>
+</tr>
+<tr>
+<td><code>generateTests</code></td>
+<td>Produces a JUnit scaffold for a Java class; written only with <code>confirm=true</code></td>
+</tr>
+</tbody></table>
+<p>Tools that change files default to <strong>dry-run</strong>: the agent has to pass <code>confirm=true</code> for anything to change. The server is also sandboxed. It only touches files inside your workspace folders, checked after resolving symlinks, whatever root the agent asks for.</p>
+<p>On Kiro, BugBench registers itself at user level automatically and offers once per workspace to register at workspace level, which Kiro needs for the agent to see the tools.</p>
+<h3 id="6-learns-which-rules-matter-to-your-project-opt-in">6. Learns which rules matter to your project (opt-in)</h3>
+<p>Every static analyser has rules your team simply doesn&#39;t care about. Turn on learning (BugBench asks once, on first run) and every issue gets one more quick fix: <strong>BugBench: show <em>rule</em> less often in this project</strong>.</p>
+<ul>
+<li>Each time you dismiss a rule more often than you fix it, it drops one severity level (at most two), and the diagnostic tells you why it was lowered.</li>
+<li>After three dismissals with few or no fixes, the rule is hidden in that project. The workspace report still counts what was hidden.</li>
+<li><strong>Blocker and Critical issues are never hidden</strong> and drop at most one level, so a security finding can&#39;t be dismissed into silence.</li>
+<li>Preferences are per project: tuning out a rule in one repository doesn&#39;t affect another.</li>
+</ul>
+<p>It matters most on Kiro. The agent&#39;s <code>listIssues</code> call returns the same adjusted severities (with <code>originalSeverity</code> alongside), so the agent works on what <em>your team</em> treats as important instead of re-raising the rules you keep dismissing. Fixes the agent applies are recorded separately and never count as you accepting a rule, because an agent that fixes everything it&#39;s offered would otherwise teach BugBench that every rule matters.</p>
+<p>The learning is a simple, transparent count of your fixes and dismissals rather than an opaque model, and it&#39;s all local. See <a href="#privacy">Privacy</a> for exactly what&#39;s stored.</p>
+<hr>
+<h2 id="installing-the-extension">Installing the extension</h2>
+<h3 id="requirements">Requirements</h3>
+<ul>
+<li><strong>JDK 17 or newer</strong>. BugBench looks at <code>bugbench.javaHome</code>, then <code>JAVA_HOME</code>, <code>JDK_HOME</code>, the Red Hat Java extension&#39;s bundled JRE, and finally <code>java</code> on <code>PATH</code>. If it finds nothing suitable, it shows a notification with <em>Set Java Home</em> and <em>Download JDK 21</em>.</li>
+<li><strong>VS Code 1.85+</strong>, or a <strong>Kiro</strong> build on that engine version or newer.</li>
+<li>Your project on a <strong>local disk</strong>. Virtual and remote-only workspaces aren&#39;t supported.</li>
+</ul>
+<h3 id="on-kiro-from-open-vsx">On Kiro (from Open VSX)</h3>
+<ol>
+<li>Open Kiro.</li>
+<li>Open the <strong>Extensions</strong> view (<code>Ctrl+Shift+X</code>).</li>
+<li>Search for <strong>BugBench</strong> and click <strong>Install</strong>.</li>
+</ol>
+<p>When BugBench activates for the first time in a workspace, you&#39;ll see a banner:</p>
+<blockquote>
+<p><em>&quot;Kiro needs BugBench registered at the workspace level for the agent to see its tools.&quot;</em></p>
+</blockquote>
+<p>Click <strong>Register here</strong>, then <strong>fully restart Kiro</strong> (close all windows and reopen) so the agent re-reads the MCP config. To check it worked, ask Kiro&#39;s agent:</p>
+<blockquote>
+<p><em>&quot;Use getJavaContext on this workspace.&quot;</em></p>
+</blockquote>
+<p>A JSON response with <code>javaVersion</code>, <code>buildSystem</code> and friends means the agent can see BugBench&#39;s tools.</p>
+<p>If you dismissed the prompt, run <code>Ctrl+Shift+P</code> → <strong><code>BugBench: Register MCP server in current workspace (Kiro)</code></strong>.</p>
+<h3 id="on-vs-code-from-a-vsix">On VS Code (from a <code>.vsix</code>)</h3>
+<ol>
+<li>Open <a href="https://open-vsx.org/extension/bugbench/bugbench">BugBench on Open VSX</a> and download the <code>.vsix</code>.</li>
+<li>In VS Code, open the Command Palette (<code>Ctrl+Shift+P</code>).</li>
+<li>Run <strong><code>Extensions: Install from VSIX...</code></strong> and pick the file.</li>
+</ol>
+<p>Or from a terminal: <code>code --install-extension bugbench.bugbench-&lt;version&gt;.vsix</code>.</p>
+<hr>
+<h2 id="using-the-extension-day-to-day">Using the extension day to day</h2>
+<p>Once installed, there&#39;s nothing special to do: open a Java or Kotlin project and diagnostics appear within a few seconds.</p>
+<h3 id="see-and-fix-issues">See and fix issues</h3>
+<ol>
+<li>Open a <code>.java</code> or <code>.kt</code> file.</li>
+<li>Watch the gutter and the <strong>Problems</strong> panel populate.</li>
+<li>Put the cursor on an underlined region and open the lightbulb (<code>Ctrl+.</code>).</li>
+<li>Pick a BugBench fix to apply all available fixes in the file. With learning on, you can instead pick <em>show this rule less often in this project</em> if it&#39;s noise for your codebase.</li>
+</ol>
+<h3 id="refactor-a-whole-file-in-one-go">Refactor a whole file in one go</h3>
+<pre><code>BugBench: Apply auto-fixes to current file
+</code></pre>
+<p>Every applicable fixer runs as a single edit.</p>
+<h3 id="generate-junit-scaffolding">Generate JUnit scaffolding</h3>
+<p>Either click the <strong>Generate tests with BugBench</strong> code lens above a class, or run <strong><code>BugBench: Generate JUnit test scaffold</code></strong> from the Command Palette. The proposal opens in a side editor with a <em>Save as <code>&lt;ClassName&gt;Test.java</code></em> action.</p>
+<h3 id="run-a-workspace-audit">Run a workspace audit</h3>
+<pre><code>BugBench: Scan workspace and open report
+</code></pre>
+<p>Set <code>bugbench.includeTests</code> to <code>true</code> to include <code>src/test/</code> sources.</p>
+<h3 id="use-the-mcp-server-from-other-hosts">Use the MCP server from other hosts</h3>
+<p>To use BugBench from Cursor, Claude Desktop, or Claude Code:</p>
+<pre><code>BugBench: Install MCP server for current host (copy JSON snippet)
+</code></pre>
+<p>This copies a registration block to your clipboard, ready to paste into the host&#39;s MCP config.</p>
+<h3 id="full-command-list">Full command list</h3>
+<p>All commands are under the <strong>BugBench:</strong> prefix in the Command Palette:</p>
+<ul>
+<li><code>Apply auto-fixes to current file</code></li>
+<li><code>Generate JUnit test scaffold</code></li>
+<li><code>Scan workspace and open report</code></li>
+<li><code>Restart language and MCP servers</code></li>
+<li><code>Show server logs</code></li>
+<li><code>Install MCP server for current host (copy JSON snippet)</code></li>
+<li><code>Register MCP server in current workspace (Kiro)</code></li>
+<li><code>Toggle ML data collection</code></li>
+<li><code>Export collected ML data (JSON)</code></li>
+<li><code>Delete all collected ML data</code></li>
+</ul>
+<hr>
+<h2 id="configuration">Configuration</h2>
+<p>BugBench&#39;s settings live under the <strong>BugBench</strong> category:</p>
+<table>
+<thead>
+<tr>
+<th>Setting</th>
+<th>Default</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>bugbench.javaHome</code></td>
+<td><code>&quot;&quot;</code></td>
+<td>JDK 17+ home; overrides <code>JAVA_HOME</code> / <code>JDK_HOME</code>.</td>
+</tr>
+<tr>
+<td><code>bugbench.lsp.enabled</code></td>
+<td><code>true</code></td>
+<td>Run the language server (turn off for MCP-only use).</td>
+</tr>
+<tr>
+<td><code>bugbench.includeTests</code></td>
+<td><code>false</code></td>
+<td>Include <code>src/test/</code> sources in workspace scans.</td>
+</tr>
+<tr>
+<td><code>bugbench.mcp.autoRegister</code></td>
+<td><code>true</code></td>
+<td>Write the MCP registration on activation.</td>
+</tr>
+<tr>
+<td><code>bugbench.mcp.configPath</code></td>
+<td><code>&quot;&quot;</code></td>
+<td>Override the host&#39;s MCP config path (default: <code>~/.kiro/settings/mcp.json</code>).</td>
+</tr>
+<tr>
+<td><code>bugbench.ml.collectionEnabled</code></td>
+<td><code>null</code></td>
+<td>Learn rule preferences per project; <code>null</code> asks on first run.</td>
+</tr>
+<tr>
+<td><code>bugbench.ml.dataDir</code></td>
+<td><code>&quot;&quot;</code></td>
+<td>Where learning data is kept (default: <code>~/.bugbench/ml</code>).</td>
+</tr>
+</tbody></table>
+<hr>
+<h2 id="privacy">Privacy</h2>
+<p>BugBench is local-first:</p>
+<ul>
+<li>Analysis, fixes and test generation run <strong>entirely on your machine</strong>. BugBench makes no network calls of its own.</li>
+<li>Learning is <strong>off until you say yes</strong> to a one-time prompt. When on, it appends to <code>~/.bugbench/ml/events.tsv</code>: a timestamp, whether the event came from you or the agent, the rule ID (or tool name), the action, and a hash of the project path. <strong>No source code, file names or paths are stored.</strong></li>
+<li>Matching your test style reads your test files locally and stores nothing, so it needs no opt-in.</li>
+<li>VS Code&#39;s <code>telemetry.telemetryLevel</code> setting is a hard kill-switch: when it&#39;s <code>off</code>, learning is paused.</li>
+<li><em>Export collected ML data (JSON)</em> gives you every recorded event; <em>Delete all collected ML data</em> erases them and resets every learned severity.</li>
+</ul>
+<hr>
+<h2 id="why-use-bugbench">Why use BugBench?</h2>
+<ul>
+<li><strong>One install covers analysis, fixes and tests.</strong> These usually come from separate extensions or command-line tools. BugBench puts them behind a single language server with one severity scale and one report.</li>
+<li><strong>Agent-ready out of the box.</strong> On Kiro (or any MCP-capable host), the engine behind your editor is available to your AI agent. Instead of you relaying between the agent&#39;s suggestions and the linter, the agent can call <code>listIssues</code>, preview fixes, and apply them with your confirmation.</li>
+<li><strong>Safe by design.</strong> Tools that change files are dry-run by default and sandboxed to your workspace. Generated tests open in a side editor and never overwrite files silently.</li>
+<li><strong>JVM-native depth.</strong> Analysis and fixes understand Spring, JPA, REST controllers and Camel routes, not just generic Java smells.</li>
+<li><strong>It adapts to your team.</strong> Generated tests follow your existing style, and opt-in learning tones down the rules you keep dismissing, for you and your agent alike.</li>
+<li><strong>Local-first privacy.</strong> No source code ever leaves your machine.</li>
+<li><strong>Resilient.</strong> If a BugBench server crashes, it restarts automatically (up to five times in three minutes before notifying you), and <em>Show server logs</em> is one command away.</li>
+</ul>
+<hr>
+<h2 id="wrapping-up">Wrapping up</h2>
+<p>BugBench takes the well-trodden Java/Kotlin static analysis stack and reshapes it into something that feels native to a modern, agent-aware editor. If you live in VS Code or Kiro and write JVM code, it&#39;s worth a fifteen-minute test drive: install it, open a real project, run <em>Scan workspace and open report</em>, and see what your codebase looks like through BugBench&#39;s lens.</p>
+<p>Get it on <strong><a href="https://open-vsx.org/extension/bugbench/bugbench">Open VSX</a></strong>, and let your editor and your agent do more of the boring work for you.</p>
+</body>
+</html>
