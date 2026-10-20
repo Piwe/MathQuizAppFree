@@ -46,6 +46,22 @@ upstream multi-module project.
   application-scoped, so a workspace's settings cannot opt you in.
 - Removed the `bugbench.ml.syncEnabled` setting, which had no effect.
 
+### Fixes
+- The *Generate tests with BugBench* code lens now generates tests for
+  the class it sits above; it previously always used the file's first
+  class.
+- MCP registration no longer overwrites an `mcp.json` it cannot parse
+  (which wiped the other servers in it). It leaves the file untouched
+  and shows a warning instead.
+- Analysis waits for a 300 ms pause in typing instead of running on
+  every keystroke; opening and saving still analyse immediately.
+- SpotBugs is skipped up front when its command-line tool is not
+  installed, instead of compiling every file with javac first. The
+  check is cached and repeated every five minutes.
+- The extension no longer starts an MCP server process of its own that
+  nothing used; MCP hosts such as Kiro launch their own. The restart
+  command is now *BugBench: Restart language server*.
+
 ### Documentation
 - README and listing now describe only what the extension does today:
   corrected rule and fixer counts, MCP tool behaviour, and install

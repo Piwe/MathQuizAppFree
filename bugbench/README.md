@@ -138,7 +138,7 @@ All under the **BugBench:** prefix in the Command Palette:
 - `Apply auto-fixes to current file`
 - `Generate JUnit test scaffold`
 - `Scan workspace and open report`
-- `Restart language and MCP servers`
+- `Restart language server`
 - `Show server logs`
 - `Install MCP server for current host (copy JSON snippet)`
 - `Register MCP server in current workspace (Kiro)`

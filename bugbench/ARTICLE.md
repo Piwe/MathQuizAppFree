@@ -178,7 +178,7 @@ All commands are under the **BugBench:** prefix in the Command Palette:
 - `Apply auto-fixes to current file`
 - `Generate JUnit test scaffold`
 - `Scan workspace and open report`
-- `Restart language and MCP servers`
+- `Restart language server`
 - `Show server logs`
 - `Install MCP server for current host (copy JSON snippet)`
 - `Register MCP server in current workspace (Kiro)`
@@ -224,7 +224,7 @@ BugBench is local-first:
 - **JVM-native depth.** Analysis and fixes understand Spring, JPA, REST controllers and Camel routes, not just generic Java smells.
 - **It adapts to your team.** Generated tests follow your existing style, and opt-in learning tones down the rules you keep dismissing, for you and your agent alike.
 - **Local-first privacy.** No source code ever leaves your machine.
-- **Resilient.** If a BugBench server crashes, it restarts automatically (up to five times in three minutes before notifying you), and *Show server logs* is one command away.
+- **Resilient.** If the language server crashes, it restarts automatically unless it crashes five times within three minutes, and *Show server logs* is one command away.
 
 ---
 
